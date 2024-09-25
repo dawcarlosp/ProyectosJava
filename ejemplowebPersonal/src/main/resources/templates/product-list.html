@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de productos</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Lista de Productos</h1>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>TÍTULO</th>
+                <th>CANTIDAD</th>
+                <th>PRECIO</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="producto : ${productos}">
+                <td th:text="${producto.id}"></td>
+                <td>
+                    <a th:href="@{/productos/view/{id}(id=${producto.id})}"
+                       th:text="${producto.titulo}"></a>
+                </td>
+                <td th:text="${producto.cantidad}"></td>
+                <td th:text="${producto.precio}"></td>
+                <td>
+                    <a th:href="@{/productos/del/{id}(id=${producto.id})}">
+                        <i class="bi bi-trash3-fill"></i>
+                    </a></span>
+                    <a th:href="@{/productos/edit/{id}(id=${producto.id})}">
+                        <i class="bi bi-pencil-square"></i>
+                    </a></span>
+                    <a th:href="@{/productos/view/{id}(id=${producto.id})}">
+                        <i class="bi bi-eye"></i>
+                    </a></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <a th:href="@{/productos/new}">
+            <i class="bi bi-plus-circle"></i>
+        </a>
+    </div>
+</body>
+</html>

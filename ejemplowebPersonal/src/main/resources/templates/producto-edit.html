@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar producto</title>
+</head>
+<body>
+<div class="container">
+    <form action="" method="POST">
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Titulo</label>
+            <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="Titulo"
+                   th:value="${producto.titulo}">
+
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="Cantidad"
+                   th:value="${producto.cantidad}">
+
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" class="form-control" name="precio" id="precio" aria-describedby="Precio" step="0.01"
+                   th:value="${producto.precio}">
+
+            <input type="hidden" name="id" th:value="${producto.id}">
+        </div>
+        <button type="submit" class="btn btn-primary">Modificar producto</button>
+    </form>
+</div>
+</body>
+</html>
