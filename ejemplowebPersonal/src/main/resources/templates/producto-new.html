@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <head>
     <meta charset="UTF-8">
     <title>Alta producto</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
   <form th:action="@{/productos/new}" method="POST" th:object="${producto}">
     <div class="mb-3">
       <label for="titulo" class="form-label">Titulo</label>
-      <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="Titulo">
-      <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+      <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="Titulo" th:field="*{titulo}">
+      <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="alert alert-warning mb-3"></p>
       <label for="cantidad" class="form-label">Cantidad</label>
-      <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="Cantidad">
-
+      <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="Cantidad" th:field="*{cantidad}">
+      <p th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}" class="alert alert-warning mb-3"></p>
       <label for="precio" class="form-label">Precio</label>
       <input type="number" class="form-control" name="precio" id="precio" aria-describedby="Precio"
-      min="0" step="0.01">
+      min="0" step="0.01" th:field="*{precio}">
+      <p th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" class="alert alert-warning mb-3"></p>
     </div>
     <button type="submit" class="btn btn-primary">Dar de alta nuevo producto</button>
   </form>

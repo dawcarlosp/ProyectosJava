@@ -1,10 +1,7 @@
 package com.iesjuanbosco.ejemploweb.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 @Entity //Especifica que esta clase es una entidad
 //Indica que la tabla en la base de datos relacionada con esta entidad
@@ -14,6 +11,7 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Esta anotación especifica que la clabe primaria sea "auto-increment"
     private Long id;
     @NotEmpty(message="El título es obligatorio")
+    @Size(min = 1, message = "El titulo no puede estar vacio")
     private String titulo;
     @NotNull(message = "Cantidad obligatoria")
     private Integer cantidad;
