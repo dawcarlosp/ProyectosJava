@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "entidades")
@@ -28,7 +30,7 @@ public class Encuesta {
     private LocalDate fechaInicio;
     @NotBlank(message = "Debes seleccionar una opción válida")
     private String motivo;
-    private String servicios;
+    private List<String> servicios;
     @NotNull(message = "Debes seleccionar una opción válida")
     private String nivelSatisfaccion;
     private String otrosComentarios;
@@ -36,7 +38,7 @@ public class Encuesta {
     public Encuesta() {
     }
 
-    public Encuesta(Long id, String nombre, String apellidos, String email, int edad, String telefono, LocalDate fechaInicio, String motivo, String servicios, String nivelSatisfaccion, String otrosComentarios) {
+    public Encuesta(Long id, String nombre, String apellidos, String email, int edad, String telefono, LocalDate fechaInicio, String motivo, List<String> servicios, String nivelSatisfaccion, String otrosComentarios) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -45,7 +47,7 @@ public class Encuesta {
         this.telefono = telefono;
         this.fechaInicio = fechaInicio;
         this.motivo = motivo;
-        this.servicios = servicios;
+        this.servicios = servicios != null ? servicios : new ArrayList<>();
         this.nivelSatisfaccion = nivelSatisfaccion;
         this.otrosComentarios = otrosComentarios;
     }
@@ -115,11 +117,11 @@ public class Encuesta {
         this.motivo = motivo;
     }
 
-    public String getServicios() {
+    public List<String> getServicios() {
         return servicios;
     }
 
-    public void setServicios(String servicios) {
+    public void setServicios(List<String> servicios) {
         this.servicios = servicios;
     }
 
@@ -140,6 +142,7 @@ public class Encuesta {
     }
 
     @Override
+
     public String toString() {
         return "Encuesta{" +
                 "id=" + id +
@@ -150,7 +153,7 @@ public class Encuesta {
                 ", telefono='" + telefono + '\'' +
                 ", fechaInicio=" + fechaInicio +
                 ", motivo='" + motivo + '\'' +
-                ", servicios='" + servicios + '\'' +
+                ", servicios=" + servicios +
                 ", nivelSatisfaccion='" + nivelSatisfaccion + '\'' +
                 ", otrosComentarios='" + otrosComentarios + '\'' +
                 '}';
