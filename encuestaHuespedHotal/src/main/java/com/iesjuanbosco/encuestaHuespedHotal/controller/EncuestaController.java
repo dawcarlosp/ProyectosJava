@@ -60,6 +60,13 @@ public class EncuestaController {
         Optional<Encuesta> encuesta = this.encuestaRepository.findById(id);
         if(encuesta.isPresent()){
             modelo.addAttribute("encuesta",encuesta.get());
+            List<Opcion> opciones = Arrays.asList(
+                    new Opcion("1", "Trabajo"),
+                    new Opcion("2", "Estudios"),
+                    new Opcion("3", "Turismo"),
+                    new Opcion("4", "Otros" )
+            );
+            modelo.addAttribute("opciones","opciones");
             return "encuesta-edit";
         }else {
             return "redirect:/encuestas";
