@@ -38,10 +38,10 @@ public class EncuestaController {
     public String newEncuestaVista(Model model){
         model.addAttribute("encuesta", new Encuesta());
         List<Opcion> opciones = Arrays.asList(
-                new Opcion("1", "Trabajo"),
-                new Opcion("2", "Estudios"),
-                new Opcion("3", "Turismo"),
-                new Opcion("4", "Otros" )
+                new Opcion("Trabajo", "Trabajo"),
+                new Opcion("Estudios", "Estudios"),
+                new Opcion("Turismo", "Turismo"),
+                new Opcion("Otros", "Otros" )
         );
         model.addAttribute("opciones", opciones);
         return "encuesta-new";
@@ -61,10 +61,10 @@ public class EncuestaController {
         if(encuesta.isPresent()){
             modelo.addAttribute("encuesta",encuesta.get());
             List<Opcion> opciones = Arrays.asList(
-                    new Opcion("1", "Trabajo"),
-                    new Opcion("2", "Estudios"),
-                    new Opcion("3", "Turismo"),
-                    new Opcion("4", "Otros" )
+                    new Opcion("Trabajo", "Trabajo"),
+                    new Opcion("Estudios", "Estudios"),
+                    new Opcion("Turismo", "Turismo"),
+                    new Opcion("Otros", "Otros" )
             );
             modelo.addAttribute("opciones",opciones);
             return "encuesta-edit";

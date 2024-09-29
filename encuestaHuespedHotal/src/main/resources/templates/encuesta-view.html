@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Visualizacion de Encuesta</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-
+<div class="container">
+    <h4 th:text="'Nombre: ' + ${encuesta.nombre}">Titulo</h4>
+    <h4 th:text="'Apellidos : ' + ${encuesta.apellidos}">Cantidad</h4>
+    <p th:text="'Email: ' + ${encuesta.email}">Precio</p>
+    <p th:text="'Edad: ' + ${encuesta.edad}">Precio</p>
+    <p th:text="'Telefono: ' + ${encuesta.telefono}">Precio</p>
+    <p th:text="'Fecha de inicio de la estancia : ' + ${encuesta.fechaInicio}">Precio</p>
+    <p th:text="'Motivo de la visita: ' + ${encuesta.motivo}">Precio</p>
+    <p th:text="'Servicios utilizados durante la estancia: ' + ${encuesta.servicios}">Precio</p>
+    <p th:text="'Nivel de satisfacción general: ' + ${encuesta.nivelSatisfaccion}">Precio</p>
+    <p th:text="'Otros comentarios: ' + ${encuesta.otrosComentarios}">Precio</p>
+    <a th:href="@{/encuestas}"><i class="bi bi-arrow-return-left"></i></a>
+</div>
 </body>
 </html>
