@@ -66,7 +66,7 @@ public class EncuestaController {
                     new Opcion("3", "Turismo"),
                     new Opcion("4", "Otros" )
             );
-            modelo.addAttribute("opciones","opciones");
+            modelo.addAttribute("opciones",opciones);
             return "encuesta-edit";
         }else {
             return "redirect:/encuestas";

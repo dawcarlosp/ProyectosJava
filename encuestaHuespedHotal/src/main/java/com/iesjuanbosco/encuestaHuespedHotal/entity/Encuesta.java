@@ -23,10 +23,10 @@ public class Encuesta {
     private String email;
     @Min(value = 18, message = "Debe ser mayor de edad")
     private int edad;
-    @NotBlank
+    @NotBlank(message = "El campo no puede estar vacio" )
     private String telefono;
     @PastOrPresent
-    @NotNull
+    @NotNull(message = "Debe marcar una fecha")
     private LocalDate fechaInicio;
     @NotBlank(message = "Debes seleccionar una opción válida")
     private String motivo;

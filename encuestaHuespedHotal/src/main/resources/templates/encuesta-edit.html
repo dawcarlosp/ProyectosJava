@@ -45,7 +45,7 @@
                 <option th:each="opcion : ${opciones}"
                         th:value="${opcion.valor}"
                         th:text="${opcion.texto}"
-                        th:selected="${opcion.valor == encuesta.motivo}">Opción</option>
+                        th:selected="${opcion.valor.equals(encuesta.motivo)}">Opción</option>
             </select>
             <p th:if="${#fields.hasErrors('motivo')}" th:errors="*{motivo}" class="alert alert-warning mb-3"></p>
             <!--Servicios -->
@@ -99,7 +99,7 @@
             <textarea name="otrosComentarios" id="otrosComentarios" class="form-control"></textarea>
             <p th:if="${#fields.hasErrors('otrosComentarios')}" th:errors="*{otrosComentarios}" class="alert alert-warning mb-3"></p>
         </div>
-        <button type="submit" class="btn btn-primary">Enviar Encuesta</button>
+        <button type="submit" class="btn btn-primary">Editar Encuesta</button>
     </form>
 </div>
 <div class="container m-5 p-5"></div>
