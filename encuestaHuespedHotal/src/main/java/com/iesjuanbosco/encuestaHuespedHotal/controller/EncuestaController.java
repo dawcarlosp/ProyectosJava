@@ -24,7 +24,15 @@ public class EncuestaController {
     @GetMapping("/encuestas")
     public String findAll(Model model){
         List<Encuesta> encuestas = this.encuestaRepository.findAll();
+        List<Opcion> filtros = Arrays.asList(
+                new Opcion("muysatisfecho", "Satisfecho"),
+                new Opcion("satisfecho", "Estudios"),
+                new Opcion("neutral", "Neutral"),
+                new Opcion("insatisfecho", "Insatisfecho" ),
+                new Opcion("muyinsatisfecho", "Muy Insatisfecho" )
+        );
         model.addAttribute("encuestas", encuestas);
+        model.addAttribute("filtros", filtros);
         return "encuesta-list";
     }
     //Eliminar encuesta
