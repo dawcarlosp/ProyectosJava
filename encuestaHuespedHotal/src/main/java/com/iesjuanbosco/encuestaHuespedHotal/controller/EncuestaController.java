@@ -9,7 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +24,7 @@ public class EncuestaController {
     }
     //Página principal
     @GetMapping("/encuestas")
-    public String findAll(Model model){
-        List<Encuesta> encuestas = this.encuestaRepository.findAll();
+    public String findAll(@RequestParam(value = "filtro", required = false) String filtro, Model model){
         List<Opcion> filtros = Arrays.asList(
                 new Opcion("muysatisfecho", "Satisfecho"),
                 new Opcion("satisfecho", "Estudios"),
@@ -31,8 +32,16 @@ public class EncuestaController {
                 new Opcion("insatisfecho", "Insatisfecho" ),
                 new Opcion("muyinsatisfecho", "Muy Insatisfecho" )
         );
-        model.addAttribute("encuestas", encuestas);
         model.addAttribute("filtros", filtros);
+        List<Encuesta> encuestas = new ArrayList<>();
+        if (filtro == null || filtro.isEmpty()) {
+            encuestas = this.encuestaRepository.findAll();
+        } else {
+            // Si se especifica una categoría, filtrar los productos
+            encuestas = this.encuestaRepository.findBynivelSatisfaccion(filtro);
+        }
+
+        model.addAttribute("encuestas", encuestas);
         return "encuesta-list";
     }
     //Eliminar encuesta
