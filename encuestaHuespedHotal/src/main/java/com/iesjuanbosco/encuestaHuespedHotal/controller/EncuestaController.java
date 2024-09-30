@@ -26,15 +26,16 @@ public class EncuestaController {
     @GetMapping("/encuestas")
     public String findAll(@RequestParam(value = "filtro", required = false) String filtro, Model model){
         List<Opcion> filtros = Arrays.asList(
-                new Opcion("muysatisfecho", "Satisfecho"),
-                new Opcion("satisfecho", "Estudios"),
+                new Opcion("todos", "Todas las encuestas"),
+                new Opcion("muysatisfecho", "Muy Satisfecho"),
+                new Opcion("satisfecho", "Satisfecho"),
                 new Opcion("neutral", "Neutral"),
                 new Opcion("insatisfecho", "Insatisfecho" ),
                 new Opcion("muyinsatisfecho", "Muy Insatisfecho" )
         );
         model.addAttribute("filtros", filtros);
         List<Encuesta> encuestas = new ArrayList<>();
-        if (filtro == null || filtro.isEmpty()) {
+        if (filtro == null || filtro.isEmpty() || filtro.equals("todos")) {
             encuestas = this.encuestaRepository.findAll();
         } else {
             // Si se especifica una categoría, filtrar los productos
@@ -64,8 +65,15 @@ public class EncuestaController {
         return "encuesta-new";
     }
     @PostMapping("/encuestas/new")
-    public String newEncuesta(@Valid Encuesta encuesta, BindingResult bindingResult){
+    public String newEncuesta(@Valid Encuesta encuesta, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
+            List<Opcion> opciones = Arrays.asList(
+                    new Opcion("Trabajo", "Trabajo"),
+                    new Opcion("Estudios", "Estudios"),
+                    new Opcion("Turismo", "Turismo"),
+                    new Opcion("Otros", "Otros" )
+            );
+            model.addAttribute("opciones", opciones);
             return "encuesta-new";
         }
         this.encuestaRepository.save(encuesta);

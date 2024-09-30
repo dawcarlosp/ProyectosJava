@@ -9,7 +9,7 @@
 <body>
 <div class="container mt-5">
     <h1 class="text-center mb-4">Lista de Encuestas</h1>
-    <div th:if="${!encuestas.isEmpty()}">
+    <div>
         <form action="/encuestas" method="GET">
             <select id="filtro" class="form-select mb-2" name="filtro">
                 <option value="" selected>-- Filtrar por nivel de satisfacción --</option>
@@ -21,9 +21,7 @@
         </form>
     </div>
 
-    <div th:if="${encuestas.isEmpty()}">
-        <p class="alert alert-info mb-3">No hay encuestas que mostrar</p>
-    </div>
+
 
     <table class="table table-striped table-hover table-bordered">
         <thead class="table-dark">
@@ -58,6 +56,9 @@
         </tr>
         </tbody>
     </table>
+</div>
+<div th:if="${encuestas.isEmpty()}" class="container-sm">
+    <p class="alert alert-info mb-3 text-center">No hay encuestas que mostrar</p>
 </div>
 <div class="container">
     <a th:href="@{/encuestas/new}">
