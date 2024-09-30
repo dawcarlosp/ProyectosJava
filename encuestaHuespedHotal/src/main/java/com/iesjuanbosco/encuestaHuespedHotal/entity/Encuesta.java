@@ -2,6 +2,7 @@ package com.iesjuanbosco.encuestaHuespedHotal.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class Encuesta {
     private String telefono;
     @PastOrPresent
     @NotNull(message = "Debe marcar una fecha")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaInicio;
     @NotBlank(message = "Debes seleccionar una opción válida")
     private String motivo;
