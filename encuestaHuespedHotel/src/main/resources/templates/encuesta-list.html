@@ -68,24 +68,42 @@
     </h2>
 </div>
 <div class="container-sm">
-    <h2 class="text-center">Estadisticas</h2>
-    <h5 class="text-center">Encuestas completadas</h5>
-    <p th:text="${totalEncuestas}" class="text-center"></p>
-    <h5 class="text-center">Promedio de edad de los encuestados</h5>
-    <p th:text="${promedioEdad}" class="text-center"></p>
-    <div class="container-sm" th:if="${porcentajes != null}">
-    <h5 class="text-center">Desglose</h5>
-    <h6 class="text-center">Muy satisfecho</h6>
-    <p th:text="${porcentajes[4]}" class="text-center"></p>
-    <h6 class="text-center">Satisfecho</h6>
-    <p th:text="${porcentajes[3]}" class="text-center"></p>
-    <h6 class="text-center">Neutral</h6>
-    <p th:text="${porcentajes[2]}" class="text-center"></p>
-    <h6 class="text-center">Insatisfecho</h6>
-    <p th:text="${porcentajes[1]}" class="text-center"></p>
-    <h6 class="text-center">Muy insatisfecho</h6>
-    <p th:text="${porcentajes[0]}" class="text-center"></p>
-    </div>
+    <!-- Nueva forma de mostrar las estadisticas -->
+    <table class="table w-25">
+        <thead>
+        <tr>
+            <th scope="col">Encuestas Completadas</th>
+            <th scope="col">Promedio de edad de los encuestados</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row" th:text="${totalEncuestas}"></th>
+            <td th:text="${promedioEdad}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Tabla satisfaccion-->
+    <table class="table w-50">
+        <thead>
+        <tr>
+            <th scope="col">Muy satisfecho</th>
+            <th scope="col">Satisfecho</th>
+            <th scope="col">Neutral</th>
+            <th scope="col">Insatisfecho</th>
+            <th scope="col">Muy Insatisfecho</th>
+        </tr>
+        </thead>
+        <tbody th:if="${porcentajes != null}">
+        <tr>
+            <th scope="row" th:text="${porcentajes[4]}" class="table-success"></th>
+            <td th:text="${porcentajes[3]}" class="table-success"></td>
+            <td th:text="${porcentajes[2]}" class="table-info"></td>
+            <td th:text="${porcentajes[1]}" class="table-warning"></td>
+            <td th:text="${porcentajes[0]}" class="table-danger"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
