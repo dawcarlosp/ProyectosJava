@@ -26,7 +26,7 @@
       <!--Edad-->
       <label for="edad" class="form-label">Edad</label>
       <input type="number" class="form-control" name="edad" id="edad" aria-describedby="Edad"
-             min="18" step="1" th:field="*{edad}">
+              step="1" th:field="*{edad}">
       <p th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}" class="alert alert-warning mb-3"></p>
       <!--Telefono -->
       <label for="telefono" class="form-label">Telefono</label>
@@ -44,63 +44,61 @@
         <option value="" selected>-- Selecciona un motivo --</option>
         <option th:each="opcion : ${opciones}"
                 th:value="${opcion.valor}"
-                th:text="${opcion.texto}">Opción</option>
+                th:text="${opcion.texto}"
+               >Opción</option>
       </select>
       <p th:if="${#fields.hasErrors('motivo')}" th:errors="*{motivo}" class="alert alert-warning mb-3"></p>
       <!--Servicios -->
       <label class="form-label">Servicios utilizados durante la estancia:</label>
       <br>
       <input type="checkbox" id="restaurante" name="servicios" value="restaurante" class="form-check-input"
-      >
+      th:field="*{servicios}">
       <label for="restaurante" class="form-check-label">Restaurante</label>
 
       <br>
 
-      <input type="checkbox" id="gimnasio" name="servicios" value="gimnasio" class="form-check-input"
-             >
+      <input type="checkbox" id="gimnasio" name="servicios" value="gimnasio" class="form-check-input"  th:field="*{servicios}">
       <label for="gimnasio" class="form-check-label">Gimnasio</label>
 
       <br>
 
-      <input type="checkbox" id="spa" name="servicios" value="spa" class="form-check-input"
-            >
+      <input type="checkbox" id="spa" name="servicios" value="spa" class="form-check-input"  th:field="*{servicios}">
       <label for="spa" class="form-check-label">Spa</label>
 
       <br>
 
-      <input type="checkbox" id="piscina" name="servicios" value="piscina" class="form-check-input"
-            >
+      <input type="checkbox" id="piscina" name="servicios" value="piscina" class="form-check-input"  th:field="*{servicios}">
       <label for="piscina" class="form-check-label">Piscina</label>
 
       <br>
 
-      <input type="checkbox" id="roomService" name="servicios" value="roomService" class="form-check-input"
-            >
+      <input type="checkbox" id="roomService" name="servicios" value="roomService" class="form-check-input"  th:field="*{servicios}">
       <label for="roomService" class="form-check-label">Room Service</label>
       <p th:if="${#fields.hasErrors('servicios')}" th:errors="*{servicios}" class="alert alert-warning mb-3"></p>
       <br>
       <!--Nivel de satisfaccion general -->
       <label>Nivel de satisfaccion General</label>
       <br>
-      <input type="radio" id="muySatisfecho" name="nivelSatisfaccion" value="muySatisfecho" class="form-check-input">
+      <input type="radio" id="muySatisfecho" name="nivelSatisfaccion" value="muySatisfecho" class="form-check-input"  th:field="*{nivelSatisfaccion}">
       <label for="muySatisfecho" class="form-check-label">Muy satisfecho</label>
       <br>
-      <input type="radio" id="satisfecho" name="nivelSatisfaccion" value="satisfecho" class="form-check-input">
+      <input type="radio" id="satisfecho" name="nivelSatisfaccion" value="satisfecho" class="form-check-input" th:field="*{nivelSatisfaccion}">
       <label for="satisfecho" class="form-check-label">Satisfecho</label>
       <br>
-      <input type="radio" id="neutral" name="nivelSatisfaccion" value="neutral" class="form-check-input">
+      <input type="radio" id="neutral" name="nivelSatisfaccion" value="neutral" class="form-check-input" th:field="*{nivelSatisfaccion}"
+            >
       <label for="neutral" class="form-check-label">Neutral</label>
       <br>
-      <input type="radio" id="insatisfecho" name="nivelSatisfaccion" value="insatisfecho" class="form-check-input">
+      <input type="radio" id="insatisfecho" name="nivelSatisfaccion" value="insatisfecho" class="form-check-input" th:field="*{nivelSatisfaccion}">
       <label for="insatisfecho" class="form-check-label">Insatisfecho</label>
       <br>
-      <input type="radio" id="muyInsatisfecho" name="nivelSatisfaccion" value="muyInsatisfecho" class="form-check-input">
+      <input type="radio" id="muyInsatisfecho" name="nivelSatisfaccion" value="muyInsatisfecho" class="form-check-input" th:field="*{nivelSatisfaccion}">
       <label for="muyInsatisfecho" class="form-check-label">Muy Insatisfecho</label>
       <p th:if="${#fields.hasErrors('nivelSatisfaccion')}" th:errors="*{nivelSatisfaccion}" class="alert alert-warning mb-3"></p>
       <br>
       <!-- Otros comentarios -->
       <label for="otrosComentarios" class="form-label">Otros comentarios: </label>
-      <textarea name="otrosComentarios" id="otrosComentarios" class="form-control"></textarea>
+      <textarea name="otrosComentarios" id="otrosComentarios" class="form-control" th:field="*{otrosComentarios}"></textarea>
       <p th:if="${#fields.hasErrors('otrosComentarios')}" th:errors="*{otrosComentarios}" class="alert alert-warning mb-3"></p>
     </div>
     <button type="submit" class="btn btn-primary">Enviar Encuesta</button>

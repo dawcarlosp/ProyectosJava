@@ -116,6 +116,7 @@ public class EncuestaController {
                     new Opcion("Otros", "Otros" )
             );
             model.addAttribute("opciones", opciones);
+            model.addAttribute("encuesta", encuesta);
             return "encuesta-new";
         }
         this.encuestaRepository.save(encuesta);
