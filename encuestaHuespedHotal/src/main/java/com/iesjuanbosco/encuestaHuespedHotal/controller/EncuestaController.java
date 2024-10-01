@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,7 @@ public class EncuestaController {
         int promedioEdad;
         int sumaEdades = 0;
         //porcentajes
-        double uno, dos, tres, cuatro, cinco;
+        String uno, dos, tres, cuatro, cinco;
         List<Opcion> filtros = Arrays.asList(
                 new Opcion("todos", "Todas las encuestas"),
                 new Opcion("muySatisfecho", "Muy Satisfecho"),
@@ -59,7 +60,7 @@ public class EncuestaController {
         model.addAttribute("totalEncuestas", totalEncuestas);
         model.addAttribute("promedioEdad", promedioEdad);
         //Porcentajes
-        List<Double> porcentajes = new ArrayList<>();
+        List<String> porcentajes = new ArrayList<>();
         if(!this.encuestaRepository.findAll().isEmpty()) {
             uno = porcentajeS("muyInsatisfecho");
             dos = porcentajeS("insatisfecho");
@@ -77,14 +78,16 @@ public class EncuestaController {
 
     }
     //Metodo que devuelve el porcentaje
-    public double porcentajeS(String filtro) {
+    public String porcentajeS(String filtro) {
         double re = 0;
+        String formateado;
+        DecimalFormat df = new DecimalFormat("#.##");
         double valorParcial = this.encuestaRepository.findBynivelSatisfaccion(filtro).size();
         double valorTotal = this.encuestaRepository.findAll().size();
         if(!this.encuestaRepository.findAll().isEmpty()){
             re = (valorParcial/valorTotal) * 100;
         }
-        return re;
+        return formateado =  df.format(re);
     }
 
     //Eliminar encuesta
