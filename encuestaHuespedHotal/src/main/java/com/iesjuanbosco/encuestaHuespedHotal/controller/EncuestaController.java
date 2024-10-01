@@ -59,20 +59,22 @@ public class EncuestaController {
         model.addAttribute("totalEncuestas", totalEncuestas);
         model.addAttribute("promedioEdad", promedioEdad);
         //Porcentajes
-        if(!this.encuestaRepository.findAll().isEmpty()){
+        List<Integer> porcentajes = new ArrayList<>();
+        if(!this.encuestaRepository.findAll().isEmpty()) {
             uno = porcentajeS("insatisfecho");
-            dos = porcentajeS("muyinsatisfecho");
+            dos = porcentajeS("muyInsatisfecho");
             tres = porcentajeS("neutral");
             cuatro = porcentajeS("satisfecho");
-            cinco = porcentajeS("muysatisfecho");
-            List<Integer> porcentajes = new ArrayList<>();
+            cinco = porcentajeS("muySatisfecho");
             porcentajes.add(uno);
             porcentajes.add(dos);
             porcentajes.add(tres);
             porcentajes.add(cuatro);
             porcentajes.add(cinco);
-            model.addAttribute("porcentajes",porcentajes);}
-        return "encuesta-list";
+            model.addAttribute("porcentajes", porcentajes);
+        }
+            return "encuesta-list";
+
     }
     //Metodo que devuelve el porcentaje
     public Integer porcentajeS(String filtro) {

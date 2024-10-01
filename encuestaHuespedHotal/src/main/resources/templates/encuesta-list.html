@@ -71,6 +71,7 @@
     <p th:text="${totalEncuestas}" class="text-center"></p>
     <h5 class="text-center">Promedio de edad de los encuestados</h5>
     <p th:text="${promedioEdad}" class="text-center"></p>
+    <div class="container-sm" th:if="${porcentajes != null}">
     <h5 class="text-center">Desglose</h5>
     <h6 class="text-center">Muy satisfecho</h6>
     <p th:text="${porcentajes[3]}" class="text-center"></p>
@@ -82,6 +83,7 @@
     <p th:text="${porcentajes[1]}" class="text-center"></p>
     <h6 class="text-center">Muy insatisfecho</h6>
     <p th:text="${porcentajes[0]}" class="text-center"></p>
+    </div>
 </div>
 </body>
 </html>
