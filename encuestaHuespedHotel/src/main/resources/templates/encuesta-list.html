@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de encuestas</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Lista de Encuestas</h1>
+    <div>
+        <form action="/encuestas" method="GET">
+            <select id="filtro" class="form-select mb-2" name="filtro">
+                <option value="" selected>-- Filtrar por nivel de satisfacción --</option>
+                <option th:each="filtro : ${filtros}"
+                        th:value="${filtro.valor}"
+                        th:text="${filtro.texto}">Opción</option>
+            </select>
+            <button type="submit" class="btn btn-primary mb-1 float-end">Filtrar</button>
+        </form>
+    </div>
+
+
+
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>NOMBRE DEL HUESPED</th>
+            <th>FECHA DE INICIO DE LA ESTANCIA</th>
+            <th>NIVEL DE SATISFACCIÓN GENERAL</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="encuesta : ${encuestas}">
+            <td>
+                <a th:href="@{/encuestas/view/{id}(id=${encuesta.id})}"
+                   th:text="${encuesta.nombre}"></a>
+            </td>
+            <td th:text="${encuesta.fechaInicio}"></td>
+            <td th:text="${encuesta.nivelSatisfaccion}"></td>
+            <td>
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/encuestas/del/{id}(id=${encuesta.id})}">
+                        <i class="bi bi-trash3-fill fs-4 "></i>
+                    </a></span>
+                    <a th:href="@{/encuestas/edit/{id}(id=${encuesta.id})}">
+                        <i class="bi bi-pencil-square fs-4"></i>
+                    </a></span>
+                    <a th:href="@{/encuestas/view/{id}(id=${encuesta.id})}">
+                        <i class="bi bi-eye fs-4"></i>
+                    </a></span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:if="${encuestas.isEmpty()}" class="container-sm">
+    <p class="alert alert-info mb-3 text-center">No hay encuestas que mostrar</p>
+</div>
+<div class="container">
+    <a th:href="@{/encuestas/new}">
+        <i class="bi bi-plus-circle fs-1">Realizar una nueva encuesta</i>
+    </a>
+</div>
+<div class="container-sm">
+    <h2 class="text-center">Estadisticas</h2>
+    <h5 class="text-center">Encuestas completadas</h5>
+    <p th:text="${totalEncuestas}" class="text-center"></p>
+    <h5 class="text-center">Promedio de edad de los encuestados</h5>
+    <p th:text="${promedioEdad}" class="text-center"></p>
+    <div class="container-sm" th:if="${porcentajes != null}">
+    <h5 class="text-center">Desglose</h5>
+    <h6 class="text-center">Muy satisfecho</h6>
+    <p th:text="${porcentajes[4]}" class="text-center"></p>
+    <h6 class="text-center">Satisfecho</h6>
+    <p th:text="${porcentajes[3]}" class="text-center"></p>
+    <h6 class="text-center">Neutral</h6>
+    <p th:text="${porcentajes[2]}" class="text-center"></p>
+    <h6 class="text-center">Insatisfecho</h6>
+    <p th:text="${porcentajes[1]}" class="text-center"></p>
+    <h6 class="text-center">Muy insatisfecho</h6>
+    <p th:text="${porcentajes[0]}" class="text-center"></p>
+    </div>
+</div>
+</body>
+</html>

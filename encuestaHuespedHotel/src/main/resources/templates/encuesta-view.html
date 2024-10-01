@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizacion de Encuesta</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<div class="container">
+    <h4 class="text-center text-primary">Nombre</h4>
+    <p th:text="${encuesta.nombre}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Apellidos</h4>
+    <p th:text="${encuesta.apellidos}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Email</h4>
+    <p th:text="${encuesta.email}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Edad</h4>
+    <p th:text="${encuesta.edad}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Telefono</h4>
+    <p th:text="${encuesta.telefono}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Fecha de inicio de la estancia</h4>
+    <p th:text="${encuesta.fechaInicio}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Motivo</h4>
+    <p th:text="${encuesta.motivo}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Servicios utilizados durante la estancia</h4>
+    <p th:text="${encuesta.servicios}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Nivel de satisfacción general</h4>
+    <p th:text="${encuesta.nivelSatisfaccion}" class="text-center"></p>
+
+    <h4 class="text-center text-primary">Otros Comentarios</h4>
+    <p th:text="${encuesta.otrosComentarios}" class="text-center"></p>
+    <a th:href="@{/encuestas}"><i class="bi bi-arrow-return-left fs-1">Volver a la vista de inicio</i></a>
+</div>
+</body>
+</html>
