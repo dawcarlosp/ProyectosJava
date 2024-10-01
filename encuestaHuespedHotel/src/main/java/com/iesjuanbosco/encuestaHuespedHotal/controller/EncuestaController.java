@@ -109,6 +109,10 @@ public class EncuestaController {
         model.addAttribute("opciones", opciones);
         return "encuesta-new";
     }
+    @GetMapping("/encuestas/exito")
+    public String exito(){
+        return "encuesta-exito";
+    }
     @PostMapping("/encuestas/new")
     public String newEncuesta(@Valid Encuesta encuesta, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
@@ -123,7 +127,7 @@ public class EncuestaController {
             return "encuesta-new";
         }
         this.encuestaRepository.save(encuesta);
-        return "redirect:/encuestas";
+        return "redirect:/encuestas/exito";
     }
     //Modificar encuesta
     @GetMapping("/encuestas/edit/{id}")
