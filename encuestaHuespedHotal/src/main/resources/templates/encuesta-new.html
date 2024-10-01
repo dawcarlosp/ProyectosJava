@@ -50,27 +50,32 @@
       <!--Servicios -->
       <label class="form-label">Servicios utilizados durante la estancia:</label>
       <br>
-      <input type="checkbox" id="restaurante" name="servicios" value="restaurante" class="form-check-input">
+      <input type="checkbox" id="restaurante" name="servicios" value="restaurante" class="form-check-input"
+      >
       <label for="restaurante" class="form-check-label">Restaurante</label>
 
       <br>
 
-      <input type="checkbox" id="gimnasio" name="servicios" value="gimnasio" class="form-check-input">
+      <input type="checkbox" id="gimnasio" name="servicios" value="gimnasio" class="form-check-input"
+             >
       <label for="gimnasio" class="form-check-label">Gimnasio</label>
 
       <br>
 
-      <input type="checkbox" id="spa" name="servicios" value="spa" class="form-check-input">
+      <input type="checkbox" id="spa" name="servicios" value="spa" class="form-check-input"
+            >
       <label for="spa" class="form-check-label">Spa</label>
 
       <br>
 
-      <input type="checkbox" id="piscina" name="servicios" value="piscina" class="form-check-input">
+      <input type="checkbox" id="piscina" name="servicios" value="piscina" class="form-check-input"
+            >
       <label for="piscina" class="form-check-label">Piscina</label>
 
       <br>
 
-      <input type="checkbox" id="roomService" name="servicios" value="roomService" class="form-check-input">
+      <input type="checkbox" id="roomService" name="servicios" value="roomService" class="form-check-input"
+            >
       <label for="roomService" class="form-check-label">Room Service</label>
       <p th:if="${#fields.hasErrors('servicios')}" th:errors="*{servicios}" class="alert alert-warning mb-3"></p>
       <br>

@@ -25,6 +25,11 @@ public class EncuestaController {
     //Página principal
     @GetMapping("/encuestas")
     public String findAll(@RequestParam(value = "filtro", required = false) String filtro, Model model){
+        int totalEncuestas;
+        int promedioEdad;
+        int sumaEdades = 0;
+        //porcentajes
+        int uno, dos, tres, cuatro, cinco;
         List<Opcion> filtros = Arrays.asList(
                 new Opcion("todos", "Todas las encuestas"),
                 new Opcion("muysatisfecho", "Muy Satisfecho"),
@@ -41,10 +46,46 @@ public class EncuestaController {
             // Si se especifica una categoría, filtrar los productos
             encuestas = this.encuestaRepository.findBynivelSatisfaccion(filtro);
         }
-
+        totalEncuestas = this.encuestaRepository.findAll().size();
+        for (int i = 0; i < totalEncuestas; i++) {
+            sumaEdades += this.encuestaRepository.findAll().get(i).getEdad();
+        }
+        if(totalEncuestas!=0) {
+            promedioEdad = sumaEdades / totalEncuestas;
+        }else{
+            promedioEdad = 0;
+        }
         model.addAttribute("encuestas", encuestas);
+        model.addAttribute("totalEncuestas", totalEncuestas);
+        model.addAttribute("promedioEdad", promedioEdad);
+        //Porcentajes
+        if(!this.encuestaRepository.findAll().isEmpty()){
+            uno = porcentajeS("insatisfecho");
+            dos = porcentajeS("muyinsatisfecho");
+            tres = porcentajeS("neutral");
+            cuatro = porcentajeS("satisfecho");
+            cinco = porcentajeS("muysatisfecho");
+            List<Integer> porcentajes = new ArrayList<>();
+            porcentajes.add(uno);
+            porcentajes.add(dos);
+            porcentajes.add(tres);
+            porcentajes.add(cuatro);
+            porcentajes.add(cinco);
+            model.addAttribute("porcentajes",porcentajes);}
         return "encuesta-list";
     }
+    //Metodo que devuelve el porcentaje
+    public Integer porcentajeS(String filtro) {
+        Integer re = 0;
+        List<Encuesta> todasLasEncuestas = this.encuestaRepository.findAll();
+        Integer encuestasFiltradas = this.encuestaRepository.findBynivelSatisfaccion(filtro).size();
+        if (!todasLasEncuestas.isEmpty()) {
+            Integer totalEncuestas = todasLasEncuestas.size();
+                re = (encuestasFiltradas * 100) / totalEncuestas;
+        }
+        return re;
+    }
+
     //Eliminar encuesta
     @GetMapping("/encuestas/del/{id}")
     public String deleteEncuestaVista(@PathVariable Long id){

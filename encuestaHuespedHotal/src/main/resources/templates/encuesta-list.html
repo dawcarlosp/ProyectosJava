@@ -65,5 +65,23 @@
         <i class="bi bi-plus-circle fs-1">Realizar una nueva encuesta</i>
     </a>
 </div>
+<div class="container-sm">
+    <h2 class="text-center">Estadisticas</h2>
+    <h5 class="text-center">Encuestas completadas</h5>
+    <p th:text="${totalEncuestas}" class="text-center"></p>
+    <h5 class="text-center">Promedio de edad de los encuestados</h5>
+    <p th:text="${promedioEdad}" class="text-center"></p>
+    <h5 class="text-center">Desglose</h5>
+    <h6 class="text-center">Muy satisfecho</h6>
+    <p th:text="${porcentajes[3]}" class="text-center"></p>
+    <h6 class="text-center">Satisfecho</h6>
+    <p th:text="${porcentajes[3]}" class="text-center"></p>
+    <h6 class="text-center">Neutral</h6>
+    <p th:text="${porcentajes[2]}" class="text-center"></p>
+    <h6 class="text-center">Insatisfecho</h6>
+    <p th:text="${porcentajes[1]}" class="text-center"></p>
+    <h6 class="text-center">Muy insatisfecho</h6>
+    <p th:text="${porcentajes[0]}" class="text-center"></p>
+</div>
 </body>
 </html>
