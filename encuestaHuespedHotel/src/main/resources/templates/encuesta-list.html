@@ -68,25 +68,28 @@
     </h2>
 </div>
 <div class="container-sm">
+    <h1 class="text-secondary">Estadisticas</h1>
     <!-- Nueva forma de mostrar las estadisticas -->
-    <table class="table w-25">
+    <table class="table w-50 text-center table-bordered">
         <thead>
-        <tr>
+        <tr class="table-dark">
             <th scope="col">Encuestas Completadas</th>
+            <th scope="col">Encuestas disponibles</th>
             <th scope="col">Promedio de edad de los encuestados</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr >
+            <th scope="row" th:text="${encuestasCompletadas}"></th>
             <th scope="row" th:text="${totalEncuestas}"></th>
             <td th:text="${promedioEdad}"></td>
         </tr>
         </tbody>
     </table>
     <!-- Tabla satisfaccion-->
-    <table class="table w-50">
+    <table class="table w-50 table-bordered">
         <thead>
-        <tr>
+        <tr class="table-dark">
             <th scope="col">Muy satisfecho</th>
             <th scope="col">Satisfecho</th>
             <th scope="col">Neutral</th>
