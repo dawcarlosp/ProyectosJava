@@ -29,14 +29,14 @@ public class EncuestaController {
         int promedioEdad;
         int sumaEdades = 0;
         //porcentajes
-        int uno, dos, tres, cuatro, cinco;
+        double uno, dos, tres, cuatro, cinco;
         List<Opcion> filtros = Arrays.asList(
                 new Opcion("todos", "Todas las encuestas"),
-                new Opcion("muysatisfecho", "Muy Satisfecho"),
+                new Opcion("muySatisfecho", "Muy Satisfecho"),
                 new Opcion("satisfecho", "Satisfecho"),
                 new Opcion("neutral", "Neutral"),
                 new Opcion("insatisfecho", "Insatisfecho" ),
-                new Opcion("muyinsatisfecho", "Muy Insatisfecho" )
+                new Opcion("muyInsatisfecho", "Muy Insatisfecho" )
         );
         model.addAttribute("filtros", filtros);
         List<Encuesta> encuestas = new ArrayList<>();
@@ -59,10 +59,10 @@ public class EncuestaController {
         model.addAttribute("totalEncuestas", totalEncuestas);
         model.addAttribute("promedioEdad", promedioEdad);
         //Porcentajes
-        List<Integer> porcentajes = new ArrayList<>();
+        List<Double> porcentajes = new ArrayList<>();
         if(!this.encuestaRepository.findAll().isEmpty()) {
-            uno = porcentajeS("insatisfecho");
-            dos = porcentajeS("muyInsatisfecho");
+            uno = porcentajeS("muyInsatisfecho");
+            dos = porcentajeS("insatisfecho");
             tres = porcentajeS("neutral");
             cuatro = porcentajeS("satisfecho");
             cinco = porcentajeS("muySatisfecho");
@@ -77,13 +77,12 @@ public class EncuestaController {
 
     }
     //Metodo que devuelve el porcentaje
-    public Integer porcentajeS(String filtro) {
-        Integer re = 0;
-        List<Encuesta> todasLasEncuestas = this.encuestaRepository.findAll();
-        Integer encuestasFiltradas = this.encuestaRepository.findBynivelSatisfaccion(filtro).size();
-        if (!todasLasEncuestas.isEmpty()) {
-            Integer totalEncuestas = todasLasEncuestas.size();
-                re = (encuestasFiltradas * 100) / totalEncuestas;
+    public double porcentajeS(String filtro) {
+        double re = 0;
+        double valorParcial = this.encuestaRepository.findBynivelSatisfaccion(filtro).size();
+        double valorTotal = this.encuestaRepository.findAll().size();
+        if(!this.encuestaRepository.findAll().isEmpty()){
+            re = (valorParcial/valorTotal) * 100;
         }
         return re;
     }
