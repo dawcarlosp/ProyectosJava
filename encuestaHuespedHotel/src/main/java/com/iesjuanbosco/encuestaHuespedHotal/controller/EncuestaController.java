@@ -161,19 +161,19 @@ public class EncuestaController {
         String servicios = "";
         if(encuesta.isPresent()){
             if(encuesta.get().getRestauranteS()){
-                servicios += "Restaurante";
+                servicios += " Restaurante ";
             }
             if(encuesta.get().getGimnasioS()){
-                servicios += ", Gimnasio";
+                servicios += " Gimnasio ";
             }
             if(encuesta.get().getSpaS()){
-                servicios += ", Spa";
+                servicios += " Spa ";
             }
             if (encuesta.get().getPiscinaS()) {
-                servicios += ", Piscina";
+                servicios += " Piscina ";
             }
             if (encuesta.get().getRoomService()) {
-                servicios += ", Room";
+                servicios += " Room ";
             }
             model.addAttribute("encuesta", encuesta.get());
             model.addAttribute("servicios", servicios);

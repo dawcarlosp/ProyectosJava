@@ -51,27 +51,27 @@
             <!--Servicios -->
             <label class="form-label">Servicios utilizados durante la estancia:</label>
             <br>
-            <input type="checkbox" id="restaurante" name="servicios" value="restaurante" class="form-check-input"  th:checked="${encuesta.getRestauranteS()}">
+            <input type="checkbox" id="restaurante" name="servicios" value="restaurante" class="form-check-input"  th:checked="${encuesta.restauranteS}" th:field="*{restauranteS}">
             <label for="restaurante" class="form-check-label">Restaurante</label>
 
             <br>
 
-            <input type="checkbox" id="gimnasio" name="servicios" value="gimnasio" class="form-check-input"  th:checked="${encuesta.getGimnasioS()}">
+            <input type="checkbox" id="gimnasio" name="servicios" value="gimnasio" class="form-check-input"  th:checked="${encuesta.gimnasioS}" th:field="*{gimnasioS}">
             <label for="gimnasio" class="form-check-label">Gimnasio</label>
 
             <br>
 
-            <input type="checkbox" id="spa" name="servicios" value="spa" class="form-check-input"  th:checked="${encuesta.getSpaS()}">
+            <input type="checkbox" id="spa" name="servicios" value="spa" class="form-check-input"  th:checked="${encuesta.spaS}" th:field="*{spaS}">
             <label for="spa" class="form-check-label">Spa</label>
 
             <br>
 
-            <input type="checkbox" id="piscina" name="servicios" value="piscina" class="form-check-input"  th:checked="${encuesta.getPiscinaS()}">
+            <input type="checkbox" id="piscina" name="servicios" value="piscina" class="form-check-input"  th:checked="${encuesta.piscinaS}" th:field="*{piscinaS}">
             <label for="piscina" class="form-check-label">Piscina</label>
 
             <br>
 
-            <input type="checkbox" id="roomService" name="servicios" value="roomService" class="form-check-input"  th:checked="${encuesta.getRoomService()}">
+            <input type="checkbox" id="roomService" name="servicios" value="roomService" class="form-check-input"  th:checked="${encuesta.roomService}" th:field="*{roomService}">
             <label for="roomService" class="form-check-label">Room Service</label>
             <br>
             <!--Nivel de satisfaccion general -->
