@@ -19,12 +19,6 @@ import java.util.Optional;
 
 @Controller
 public class EncuestaController {
-    private  static Long encuestasCompletadas = 0L;
-
-    public static void setEncuestasCompletadas(Long encuestasCompletadas) {
-        EncuestaController.encuestasCompletadas = encuestasCompletadas;
-    }
-
     private EncuestaRepository encuestaRepository;
     public EncuestaController(EncuestaRepository repo){
         this.encuestaRepository = repo;
@@ -33,9 +27,6 @@ public class EncuestaController {
     @GetMapping("/encuestas")
     public String findAll(@RequestParam(value = "filtro", required = false) String filtro, Model model){
         //total encuestas, incluso las borradas
-        if(!this.encuestaRepository.findAll().isEmpty()){
-            setEncuestasCompletadas(this.encuestaRepository.findMaxId());
-        }
         int totalEncuestas;
         int promedioEdad;
         int sumaEdades = 0;
@@ -68,7 +59,6 @@ public class EncuestaController {
         }
         model.addAttribute("encuestas", encuestas);
         model.addAttribute("totalEncuestas", totalEncuestas);
-        model.addAttribute("encuestasCompletadas", this.encuestasCompletadas);
         model.addAttribute("promedioEdad", promedioEdad);
         //Porcentajes
         List<String> porcentajes = new ArrayList<>();

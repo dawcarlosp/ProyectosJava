@@ -73,7 +73,6 @@
 
             <input type="checkbox" id="roomService" name="servicios" value="roomService" class="form-check-input"  th:checked="${encuesta.getRoomService()}">
             <label for="roomService" class="form-check-label">Room Service</label>
-            <p th:if="${#fields.hasErrors('servicios')}" th:errors="*{servicios}" class="alert alert-warning mb-3"></p>
             <br>
             <!--Nivel de satisfaccion general -->
             <label>Nivel de satisfaccion General</label>
@@ -96,7 +95,7 @@
             <br>
             <!-- Otros comentarios -->
             <label for="otrosComentarios" class="form-label">Otros comentarios: </label>
-            <textarea name="otrosComentarios" id="otrosComentarios" class="form-control"></textarea>
+            <textarea name="otrosComentarios" id="otrosComentarios" class="form-control" th:field="*{otrosComentarios}"></textarea>
             <p th:if="${#fields.hasErrors('otrosComentarios')}" th:errors="*{otrosComentarios}" class="alert alert-warning mb-3"></p>
         </div>
         <button type="submit" class="btn btn-primary">Editar Encuesta</button>

@@ -90,17 +90,15 @@
 <div class="container-sm">
     <h1 class="text-secondary">Estadisticas</h1>
     <!-- Nueva forma de mostrar las estadisticas -->
-    <table class="table w-50 text-center table-bordered">
+    <table class="table w-25 text-center table-bordered">
         <thead>
         <tr class="table-dark">
             <th scope="col">Encuestas Completadas</th>
-            <th scope="col">Encuestas disponibles</th>
             <th scope="col">Promedio de edad de los encuestados</th>
         </tr>
         </thead>
         <tbody>
         <tr >
-            <th scope="row" th:text="${encuestasCompletadas}"></th>
             <th scope="row" th:text="${totalEncuestas}"></th>
             <td th:text="${promedioEdad}"></td>
         </tr>
