@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de encuestas</title>
+    <!--JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+    <!-- DataTables Responsive CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css" />
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables Responsive JS -->
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+
+    <!-- Bootstrap css -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Lista de Encuestas</h1>
+    <h1 class="text-start">
+        <i class="bi bi-buildings-fill text-primary fs-1"></i>
+    </h1>
+    <h1 class="text-center mb-4">Lista de Encuestas
+        <i class="bi bi-list-check text-primary"></i></h1>
     <div>
         <form action="/encuestas" method="GET">
             <select id="filtro" class="form-select mb-2" name="filtro">
@@ -23,7 +43,7 @@
 
 
 
-    <table class="table table-striped table-hover table-bordered">
+    <table class="table table-striped table-bordered dt-responsive nowrap" style="width:100%"  id="idTabla">
         <thead class="table-dark">
         <tr>
             <th>NOMBRE DEL HUESPED</th>
@@ -44,13 +64,13 @@
                 <div class="d-flex justify-content-between">
                     <a th:href="@{/encuestas/del/{id}(id=${encuesta.id})}">
                         <i class="bi bi-trash3-fill fs-4 "></i>
-                    </a></span>
+                    </a>
                     <a th:href="@{/encuestas/edit/{id}(id=${encuesta.id})}">
                         <i class="bi bi-pencil-square fs-4"></i>
-                    </a></span>
+                    </a>
                     <a th:href="@{/encuestas/view/{id}(id=${encuesta.id})}">
                         <i class="bi bi-eye fs-4"></i>
-                    </a></span>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -108,5 +128,26 @@
         </tbody>
     </table>
 </div>
+<!-- JavaScript para confirmar si de verdad el usuario quiere borrar la encuesta-->
+<script>
+    function eliminar() {
+        var respuesta = confirm("Estas seguro que desea eliminar?");
+        return respuesta
+    }
+</script>
+<!--Script Datatable -->
+<script>
+    $(document).ready(function() {
+     $('#idTabla').DataTable({
+         order: [
+             [1,'desc']
+         ],
+         responsive: true,
+         language: {
+             "url": "https://cdn.datatables.net/plug-ins/2.0.5/i18n/es-ES.json"
+         }
+     });
+ });
+</script>
 </body>
 </html>
