@@ -32,13 +32,12 @@ public class Encuesta {
     private LocalDate fechaInicio;
     @NotBlank(message = "Debes seleccionar una opción válida")
     private String motivo;
-    private List<String> servicios;
     //Servicios
-    private Boolean restauranteS;
-    private Boolean gimnasioS;
-    private Boolean spaS;
-    private Boolean piscinaS;
-    private Boolean roomServiceS;
+    private Boolean restauranteS = false;
+    private Boolean gimnasioS = false;
+    private Boolean spaS = false;
+    private Boolean piscinaS = false;
+    private Boolean roomServiceS = false;
     @NotNull(message = "Debes seleccionar una opción válida")
     private String nivelSatisfaccion;
     private String otrosComentarios;
@@ -46,7 +45,7 @@ public class Encuesta {
     public Encuesta() {
     }
 
-    public Encuesta(Long id, String nombre, String apellidos, String email, int edad, String telefono, LocalDate fechaInicio, String motivo, List<String> servicios, Boolean restauranteS, Boolean gimnasioS, Boolean spaS, Boolean piscinaS, Boolean roomService, String nivelSatisfaccion, String otrosComentarios) {
+    public Encuesta(Long id, String nombre, String apellidos, String email, int edad, String telefono, LocalDate fechaInicio, String motivo, Boolean restauranteS, Boolean gimnasioS, Boolean spaS, Boolean piscinaS, Boolean roomService, String nivelSatisfaccion, String otrosComentarios) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -55,7 +54,6 @@ public class Encuesta {
         this.telefono = telefono;
         this.fechaInicio = fechaInicio;
         this.motivo = motivo;
-        this.servicios = servicios != null ? servicios : new ArrayList<>();;
         this.restauranteS = restauranteS;
         this.gimnasioS = gimnasioS;
         this.spaS = spaS;
@@ -130,13 +128,6 @@ public class Encuesta {
         this.motivo = motivo;
     }
 
-    public List<String> getServicios() {
-        return servicios;
-    }
-
-    public void setServicios(List<String> servicios) {
-        this.servicios = servicios;
-    }
 
     public @NotNull(message = "Debes seleccionar una opción válida") String getNivelSatisfaccion() {
         return nivelSatisfaccion;
@@ -206,7 +197,6 @@ public class Encuesta {
                 ", telefono='" + telefono + '\'' +
                 ", fechaInicio=" + fechaInicio +
                 ", motivo='" + motivo + '\'' +
-                ", servicios=" + servicios +
                 ", nivelSatisfaccion='" + nivelSatisfaccion + '\'' +
                 ", otrosComentarios='" + otrosComentarios + '\'' +
                 '}';
