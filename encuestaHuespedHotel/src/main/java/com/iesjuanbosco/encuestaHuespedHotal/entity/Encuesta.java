@@ -33,6 +33,12 @@ public class Encuesta {
     @NotBlank(message = "Debes seleccionar una opción válida")
     private String motivo;
     private List<String> servicios;
+    //Servicios
+    private Boolean restauranteS;
+    private Boolean gimnasioS;
+    private Boolean spaS;
+    private Boolean piscinaS;
+    private Boolean roomServiceS;
     @NotNull(message = "Debes seleccionar una opción válida")
     private String nivelSatisfaccion;
     private String otrosComentarios;
@@ -40,7 +46,7 @@ public class Encuesta {
     public Encuesta() {
     }
 
-    public Encuesta(Long id, String nombre, String apellidos, String email, int edad, String telefono, LocalDate fechaInicio, String motivo, List<String> servicios, String nivelSatisfaccion, String otrosComentarios) {
+    public Encuesta(Long id, String nombre, String apellidos, String email, int edad, String telefono, LocalDate fechaInicio, String motivo, List<String> servicios, Boolean restauranteS, Boolean gimnasioS, Boolean spaS, Boolean piscinaS, Boolean roomService, String nivelSatisfaccion, String otrosComentarios) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -49,7 +55,12 @@ public class Encuesta {
         this.telefono = telefono;
         this.fechaInicio = fechaInicio;
         this.motivo = motivo;
-        this.servicios = servicios != null ? servicios : new ArrayList<>();
+        this.servicios = servicios != null ? servicios : new ArrayList<>();;
+        this.restauranteS = restauranteS;
+        this.gimnasioS = gimnasioS;
+        this.spaS = spaS;
+        this.piscinaS = piscinaS;
+        this.roomServiceS = roomService;
         this.nivelSatisfaccion = nivelSatisfaccion;
         this.otrosComentarios = otrosComentarios;
     }
@@ -141,6 +152,46 @@ public class Encuesta {
 
     public void setOtrosComentarios(String otrosComentarios) {
         this.otrosComentarios = otrosComentarios;
+    }
+
+    public Boolean getRestauranteS() {
+        return restauranteS;
+    }
+
+    public void setRestauranteS(Boolean restauranteS) {
+        this.restauranteS = restauranteS;
+    }
+
+    public Boolean getGimnasioS() {
+        return gimnasioS;
+    }
+
+    public void setGimnasioS(Boolean gimnasioS) {
+        this.gimnasioS = gimnasioS;
+    }
+
+    public Boolean getSpaS() {
+        return spaS;
+    }
+
+    public void setSpaS(Boolean spaS) {
+        this.spaS = spaS;
+    }
+
+    public Boolean getPiscinaS() {
+        return piscinaS;
+    }
+
+    public void setPiscinaS(Boolean piscinaS) {
+        this.piscinaS = piscinaS;
+    }
+
+    public Boolean getRoomService() {
+        return roomServiceS;
+    }
+
+    public void setRoomService(Boolean roomService) {
+        this.roomServiceS = roomService;
     }
 
     @Override

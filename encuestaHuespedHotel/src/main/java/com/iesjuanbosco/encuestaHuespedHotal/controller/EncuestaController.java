@@ -168,8 +168,25 @@ public class EncuestaController {
     @GetMapping("/encuestas/view/{id}")
     public String view(@PathVariable Long id, Model model){
         Optional<Encuesta> encuesta = this.encuestaRepository.findById(id);
+        String servicios = "";
         if(encuesta.isPresent()){
+            if(encuesta.get().getRestauranteS()){
+                servicios += "Restaurante";
+            }
+            if(encuesta.get().getGimnasioS()){
+                servicios += ", Gimnasio";
+            }
+            if(encuesta.get().getSpaS()){
+                servicios += ", Spa";
+            }
+            if (encuesta.get().getPiscinaS()) {
+                servicios += ", Piscina";
+            }
+            if (encuesta.get().getRoomService()) {
+                servicios += ", Room";
+            }
             model.addAttribute("encuesta", encuesta.get());
+            model.addAttribute("servicios", servicios);
             return "encuesta-view";
         }else{
             return "redirect:/encuestas";
