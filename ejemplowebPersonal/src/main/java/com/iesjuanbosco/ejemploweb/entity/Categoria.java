@@ -11,7 +11,11 @@ public class Categoria {
     private Long id;
     private String nombre;
     private String descripcion;
-    @OneToMany(targetEntity = Producto.class, cascade = CascadeType.ALL)
+    //CascadeType.ALL
+    //El crud que se haga en categoria, se aplica automaticamente a las intancias de producto
+    @OneToMany(targetEntity = Producto.class, cascade = CascadeType.ALL, mappedBy = "categoria")
+    //mappedBy = "categoria" le dice a JPA que esta relación está mapeada por el campo categoria en la clase Producto.
+    //Esto significa que Categoria no es la dueña de la relación. No va a generar una columna o tabla adicional en la base de datos para esta relación. Solo "sigue" la relación gestionada por Producto.
     private List productos = new ArrayList();
 
     public Categoria() {
