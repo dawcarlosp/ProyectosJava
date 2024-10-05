@@ -1,6 +1,7 @@
 package com.iesjuanbosco.ejemploweb.controller;
 
 import com.iesjuanbosco.ejemploweb.entity.Producto;
+import com.iesjuanbosco.ejemploweb.repository.CategoriaRepository;
 import com.iesjuanbosco.ejemploweb.repository.ProductoRepository;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Sort;
@@ -20,8 +21,10 @@ import java.util.Optional;
 public class ProductoController {
     //Para acceder al repositorio creamos una propiedad y la asignamos en el contructor
     private ProductoRepository productoRepository;
-    public ProductoController(ProductoRepository repository){
+    private CategoriaRepository categoriaREpository;
+    public ProductoController(ProductoRepository repository, CategoriaRepository categoriaREpository){
         this.productoRepository = repository;
+        this.categoriaREpository = categoriaREpository;
     }
     /*
   GET /productos

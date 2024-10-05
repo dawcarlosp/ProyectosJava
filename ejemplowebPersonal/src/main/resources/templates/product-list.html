@@ -14,6 +14,7 @@
             <tr>
                 <th>ID</th>
                 <th>TÍTULO</th>
+                <th>Categoria</th>
                 <th>CANTIDAD</th>
                 <th>PRECIO</th>
                 <th></th>
@@ -25,6 +26,9 @@
                 <td>
                     <a th:href="@{/productos/view/{id}(id=${producto.id})}"
                        th:text="${producto.titulo}"></a>
+                </td>
+                <td>
+                    <p th:if="${producto.categoria != null}" th:text="'['+${producto.categoria.nombre}+']'"></p>
                 </td>
                 <td th:text="${producto.cantidad}"></td>
                 <td th:text="${producto.precio}"></td>
