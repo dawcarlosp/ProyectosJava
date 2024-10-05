@@ -18,7 +18,9 @@ public class Producto {
     @NotNull(message = "El precio no puede ser nulo")
     @Min(value = 0, message = "El precio debe ser positivo")
     private Double precio;
-
+    @ManyToOne(targetEntity = Categoria.class)
+    @JoinColumn(name = "id_producto")
+    private Categoria categoria;
     public Producto(Long id, String titulo, Integer cantidad, Double precio) {
         this.id = id;
         this.titulo = titulo;
