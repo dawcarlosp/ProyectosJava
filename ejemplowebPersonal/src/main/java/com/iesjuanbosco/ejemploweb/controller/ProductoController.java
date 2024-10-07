@@ -1,5 +1,6 @@
 package com.iesjuanbosco.ejemploweb.controller;
 
+import com.iesjuanbosco.ejemploweb.entity.Categoria;
 import com.iesjuanbosco.ejemploweb.entity.Producto;
 import com.iesjuanbosco.ejemploweb.repository.CategoriaRepository;
 import com.iesjuanbosco.ejemploweb.repository.ProductoRepository;
@@ -21,10 +22,11 @@ import java.util.Optional;
 public class ProductoController {
     //Para acceder al repositorio creamos una propiedad y la asignamos en el contructor
     private ProductoRepository productoRepository;
-    private CategoriaRepository categoriaREpository;
+    private CategoriaRepository categoriaRepository;
+
     public ProductoController(ProductoRepository repository, CategoriaRepository categoriaREpository){
         this.productoRepository = repository;
-        this.categoriaREpository = categoriaREpository;
+        this.categoriaRepository = categoriaREpository;
     }
     /*
   GET /productos
@@ -47,6 +49,8 @@ public class ProductoController {
     //Alta producto
     @GetMapping("/productos/new")
     public String newProductoVista(Model model){
+        List<Categoria> categorias = this.categoriaRepository.findAll();
+        model.addAttribute("categorias", categorias);
         model.addAttribute("producto", new Producto());
         return "producto-new";
     }
@@ -62,6 +66,8 @@ public class ProductoController {
     @GetMapping("/productos/edit/{id}")
         public String editProductoVista(@PathVariable Long id, Model modelo){
         Optional<Producto> pro = this.productoRepository.findById(id);
+        List<Categoria> categorias = this.categoriaRepository.findAll();
+        modelo.addAttribute("categorias", categorias);
         if(pro.isPresent()){
             modelo.addAttribute("producto",pro.get());
             return "producto-edit";

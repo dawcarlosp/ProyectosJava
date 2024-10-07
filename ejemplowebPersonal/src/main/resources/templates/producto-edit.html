@@ -13,6 +13,15 @@
             <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="Titulo"
                    th:value="${producto.titulo}">
 
+            <label for="categoria" class="form-label">Categoria</label>
+            <select id="categoria" th:value="${producto.categoria}" class="form-select">
+                <option value="" selected>-- Selecciona una categoria --</option>
+                <option th:each="categoria : ${categorias}"
+                        th:value="${categoria.id}"
+                        th:text="${categoria.nombre}"
+                >Opción</option>
+            </select>
+
             <label for="cantidad" class="form-label">Cantidad</label>
             <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="Cantidad"
                    th:value="${producto.cantidad}">
