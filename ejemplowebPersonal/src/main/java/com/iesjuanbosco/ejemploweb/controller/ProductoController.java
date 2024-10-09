@@ -38,10 +38,46 @@ public class ProductoController {
     public String inicio(Model model){
         return "inicio";
     }
+    //listar categorias
     @GetMapping("/categorias")
-    public String categorias(Model model){
+    public String findAllC(Model model){
+        List<Categoria> categorias = this.categoriaRepository.findAll();
+        model.addAttribute("categorias", categorias);
         return "categoria-list";
     }
+    //alta nueva categoria
+    @GetMapping("/categorias/new")
+    public String newCategoriaVista(Model model){
+        model.addAttribute("categoria", new Categoria());
+        return "categoria-new";
+    }
+    @PostMapping("/categorias/new")
+    public String saveCategoria(@Valid Categoria categoria, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "categoria-new";
+        }else{
+            this.categoriaRepository.save(categoria);
+            return "redirect:/categorias";
+        }
+    }
+    //eliminar categoria
+    @GetMapping("/categorias/del/{id}")
+    public String deleteCategoria(@PathVariable Long id){
+        this.categoriaRepository.deleteById(id);
+        return "redirect:/categorias";
+    }
+    //editar categoria
+    @GetMapping("/categorias/del/{id}")
+    public String deleteCategoria(@PathVariable Long id, Model model){
+        Optional<Categoria> categoria = this.categoriaRepository.findById(id);
+        if(categoria.isPresent()){
+            model.addAttribute("categoria", categoria.get());
+            return "categoria-edit";
+        }else{
+            return "redirect:/categorias";
+        }
+    }
+    //Listar productos
     @GetMapping("/productos")
     public String findAll(Model model){
         List<Producto> productos = this.productoRepository.findAll();

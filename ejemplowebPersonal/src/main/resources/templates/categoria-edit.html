@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar categoria</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+  <form action="" method="POST">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="Nombre"
+             th:value="${categoria.nombre}">
+
+      <label for="descripcion" class="form-label">Descripcion</label>
+      <input type="text" class="form-control" name="descripcion" id="descripcion" aria-describedby="Descripcion"
+             th:value="${categoria.descripcion}">
+
+    </div>
+    <button type="submit" class="btn btn-primary">Modificar categoria</button>
+  </form>
+</div>
+</body>
+</html>

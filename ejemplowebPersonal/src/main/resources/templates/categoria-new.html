@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Alta producto</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+  <form th:action="@{/categorias/new}" method="POST" th:object="${categoria}">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="Nombre" th:field="*{nombre}">
+      <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="alert alert-warning mb-3"></p>
+
+      <label for="descripcion" class="form-label">Descripcion</label>
+      <input type="text" class="form-control" name="nombre" id="descripcion" aria-describedby="Descripcion" th:field="*{descripcion}">
+      <p th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class="alert alert-warning mb-3"></p>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Dar de alta nueva Categoria</button>
+  </form>
+</div>
+</body>
+</html>
