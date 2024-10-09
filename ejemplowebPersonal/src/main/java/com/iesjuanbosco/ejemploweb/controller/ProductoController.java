@@ -34,6 +34,14 @@ public class ProductoController {
      el usuario acceda a la URL anterior
   */
     //Pagina principal
+    @GetMapping("/inicio")
+    public String inicio(Model model){
+        return "inicio";
+    }
+    @GetMapping("/categorias")
+    public String categorias(Model model){
+        return "categoria-list";
+    }
     @GetMapping("/productos")
     public String findAll(Model model){
         List<Producto> productos = this.productoRepository.findAll();

@@ -21,14 +21,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="producto : ${productos}">
+            <tr th:each="producto : ${productos}" th:object="${producto}">
                 <td th:text="${producto.id}"></td>
                 <td>
                     <a th:href="@{/productos/view/{id}(id=${producto.id})}"
                        th:text="${producto.titulo}"></a>
                 </td>
                 <td>
-                    <p th:if="${producto.categoria != null}" th:text="'['+${producto.categoria.nombre}+']'"></p>
+                    <p th:if="${producto.categoria != null}" th:text="${producto.categoria.nombre}"></p>
                 </td>
                 <td th:text="${producto.cantidad}"></td>
                 <td th:text="${producto.precio}"></td>
