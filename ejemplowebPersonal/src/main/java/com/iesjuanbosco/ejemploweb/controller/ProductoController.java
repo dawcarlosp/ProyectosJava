@@ -67,12 +67,28 @@ public class ProductoController {
         return "redirect:/categorias";
     }
     //editar categoria
-    @GetMapping("/categorias/del/{id}")
-    public String deleteCategoria(@PathVariable Long id, Model model){
+    @GetMapping("/categorias/edit/{id}")
+    public String editCategoria(@PathVariable Long id, Model model){
         Optional<Categoria> categoria = this.categoriaRepository.findById(id);
         if(categoria.isPresent()){
             model.addAttribute("categoria", categoria.get());
             return "categoria-edit";
+        }else{
+            return "redirect:/categorias";
+        }
+    }
+    @PostMapping("/categorias/edit/{id}")
+    public String editCategoria(Categoria categoria){
+        this.categoriaRepository.save(categoria);
+        return "redirect:/categorias";
+    }
+    //Visualizar categoria
+    @GetMapping("/categorias/view/{id}")
+    public String viewCategorias(@PathVariable Long id, Model model){
+        Optional<Categoria> categoria = this.categoriaRepository.findById(id);
+        if(categoria.isPresent()){
+            model.addAttribute("categoria", categoria.get());
+            return "categoria-view";
         }else{
             return "redirect:/categorias";
         }

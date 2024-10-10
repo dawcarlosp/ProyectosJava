@@ -7,14 +7,14 @@
 </head>
 <body>
 <div class="container">
-    <form action="" method="POST">
+    <form th:action="@{/productos/edit/{id}(id=${producto.id})}" method="POST" th:object="${producto}">
         <div class="mb-3">
             <label for="titulo" class="form-label">Titulo</label>
             <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="Titulo"
-                   th:value="${producto.titulo}">
+                   th:field="*{titulo}">
 
             <label for="categoria" class="form-label">Categoria</label>
-            <select id="categoria" th:value="${producto.categoria}" class="form-select">
+            <select id="categoria" th:field="*{categoria}" class="form-select" name="categoria">
                 <option value="" selected>-- Selecciona una categoria --</option>
                 <option th:each="categoria : ${categorias}"
                         th:value="${categoria.id}"
@@ -24,13 +24,13 @@
 
             <label for="cantidad" class="form-label">Cantidad</label>
             <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="Cantidad"
-                   th:value="${producto.cantidad}">
+                   th:field="*{cantidad}">
 
             <label for="precio" class="form-label">Precio</label>
             <input type="number" class="form-control" name="precio" id="precio" aria-describedby="Precio" step="0.01"
-                   th:value="${producto.precio}">
+                   th:field="*{precio}">
 
-            <input type="hidden" name="id" th:value="${producto.id}">
+            <input type="hidden" name="id" th:field="*{id}">
         </div>
         <button type="submit" class="btn btn-primary">Modificar producto</button>
     </form>
