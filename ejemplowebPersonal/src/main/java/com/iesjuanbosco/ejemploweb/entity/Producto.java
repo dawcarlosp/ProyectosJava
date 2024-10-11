@@ -25,7 +25,7 @@ public class Producto {
    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
     @OneToMany(targetEntity = Comentario.class, cascade = CascadeType.ALL, mappedBy = "producto")
-    private List<Comentario> comentario = new ArrayList<Comentario>();
+    private List<Comentario> comentarios = new ArrayList<Comentario>();
     public Producto(Long id, String titulo, Integer cantidad, Double precio) {
         this.id = id;
         this.titulo = titulo;

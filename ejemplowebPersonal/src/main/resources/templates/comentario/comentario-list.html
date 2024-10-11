@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Listado de Comentarios</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/inicio}"><i class="bi bi-house-door-fill text-primary fs-1"></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" th:href="@{/productos}">Productos</a>
+        <a class="nav-link" th:href="@{/categorias}">Categorias</a>
+        <a class="nav-link" th:href="@{/comentarios}">Comentarios</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container mt-5 table-responsive">
+  <h1 class="text-center mb-4">Lista de Comentarios</h1>
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>TITULO</th>
+      <th>TEXTO</th>
+      <th>FECHA</th>
+      <th>PRODUCTO</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comentario : ${comentarios}" th:object="${comentario}">
+      <td th:text="${comentario.id}"></td>
+      <td>
+        <a th:href="@{/comentarios/view/{id}(id=${comentario.id})}"
+           th:text="${comentario.titulo}"></a>
+      </td>
+      <td th:text="${comentario.texto}"></td>
+      <td th:text="${comentario.fecha}"></td>
+      <td th:text="${comentario.producto.titulo}"></td>
+      <td>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <a th:href="@{/comentarios/del/{id}(id=${comentario.id})}">
+            <i class="bi bi-trash3-fill text-bg-danger fs-1"></i>
+          </a></span>
+          <a th:href="@{/comentarios/edit/{id}(id=${comentario.id})}">
+            <i class="bi bi-pencil-square fs-1"></i>
+          </a></span>
+          <a th:href="@{/comentarios/view/{id}(id=${comentario.id})}">
+            <i class="bi bi-eye text-black fs-1"></i>
+          </a></span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container">
+  <a th:href="@{/comentarios/new}">
+    <i class="bi bi-plus-circle fs-1"></i>
+  </a>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>
