@@ -8,8 +8,10 @@
 </head>
 <body>
 <div class="container-sm">
-    <h1 th:text="'Nombre: ' + ${categoria.nombre}"></h1>
-    <h3 th:text="'Comentario: ' + ${categoria.descripcion}"></h3>
+    <a th:href="@{/categorias/detalle/{id}(id=${categoria.id})}">
+        <h1 th:text="'Nombre: ' + ${categoria.nombre}"></h1>
+    </a>
+    <h3 th:text="'Descripcion: ' + ${categoria.descripcion}"></h3>
     <a th:href="@{/categorias}"><i class="bi bi-arrow-return-left"></i></a>
 </div>
 </body>
