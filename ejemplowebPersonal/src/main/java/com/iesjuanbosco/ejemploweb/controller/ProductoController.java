@@ -33,11 +33,6 @@ public class ProductoController {
   Con la anotación GetMapping le indicamos a Spring que el siguiente metodo se va ejecutar cuando
      el usuario acceda a la URL anterior
   */
-    //listar comentarios
-    @GetMapping("/comentarios")
-    public String finAllCo(Model model){
-        return "conmentario-list";
-    }
 
     //Listar productos
     @GetMapping("/productos")

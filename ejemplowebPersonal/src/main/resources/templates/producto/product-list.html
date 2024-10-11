@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Listado de productos</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary w-100">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/inicio}"><i class="bi bi-house-door-fill text-primary fs-1"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@
     </div>
 </nav>
 
-    <div class="container mt-5">
+    <div class="container mt-5 table-responsive">
         <h1 class="text-center mb-4">Lista de Productos</h1>
         <table class="table table-striped table-hover table-bordered">
             <thead class="table-dark">
@@ -49,15 +49,15 @@
                 <td th:text="${producto.cantidad}"></td>
                 <td th:text="${producto.precio}"></td>
                 <td>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
                         <a th:href="@{/productos/del/{id}(id=${producto.id})}">
-                            <i class="bi bi-trash3-fill text-danger"></i>
+                            <i class="bi bi-trash3-fill text-danger mb-5 mb-md-0 fs-1"></i>
                         </a></span>
                         <a th:href="@{/productos/edit/{id}(id=${producto.id})}">
-                            <i class="bi bi-pencil-square text-primary"></i>
+                            <i class="bi bi-pencil-square text-primary fs-1"></i>
                         </a></span>
                         <a th:href="@{/productos/view/{id}(id=${producto.id})}">
-                            <i class="bi bi-eye text-black"></i>
+                            <i class="bi bi-eye text-black fs-1"></i>
                         </a></span>
                     </div>
                 </td>
@@ -67,7 +67,7 @@
     </div>
     <div class="container">
         <a th:href="@{/productos/new}">
-            <i class="bi bi-plus-circle"></i>
+            <i class="bi bi-plus-circle fs-1"></i>
         </a>
     </div>
 </body>
