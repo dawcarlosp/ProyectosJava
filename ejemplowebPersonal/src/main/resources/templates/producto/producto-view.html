@@ -12,7 +12,28 @@
         <h3 th:text="'Categoria: ' + ${producto.categoria.nombre}">Categoria</h3>
       <h4 th:text="'Cantidad: ' + ${producto.cantidad}">Cantidad</h4>
       <h5 th:text="'Precio: ' + ${producto.precio}">Precio</h5>
-      <a th:href="@{/productos}"><i class="bi bi-arrow-return-left"></i></a>
+      <a th:href="@{/productos/}"><i class="bi bi-arrow-return-left"></i></a>
+    </div>
+    <div class="container-sm">
+        <form th:action="@{/comentarios/new}" method="POST" th:object="${comentario}">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo</label>
+                <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="Titulo" th:field="*{titulo}">
+                <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="alert alert-warning mb-3"></p>
+
+                <label for="texto" class="form-label">Texto</label>
+                <textarea class="form-control" name="texto" id="texto" aria-describedby="Texto" th:field="*{texto}">
+                </textarea>
+                <p th:if="${#fields.hasErrors('texto')}" th:errors="*{texto}" class="alert alert-warning mb-3"></p>
+
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" class="form-control" name="fecha" id="fecha" aria-describedby="fecha"
+                       th:field="*{fecha}">
+                <p th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}" class="alert alert-warning mb-3"></p>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Dar de alta nuevo Comentario</button>
+        </form>
     </div>
 </body>
 </html>

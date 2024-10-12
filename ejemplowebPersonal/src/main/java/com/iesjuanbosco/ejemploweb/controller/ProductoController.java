@@ -1,6 +1,7 @@
 package com.iesjuanbosco.ejemploweb.controller;
 
 import com.iesjuanbosco.ejemploweb.entity.Categoria;
+import com.iesjuanbosco.ejemploweb.entity.Comentario;
 import com.iesjuanbosco.ejemploweb.entity.Producto;
 import com.iesjuanbosco.ejemploweb.repository.CategoriaRepository;
 import com.iesjuanbosco.ejemploweb.repository.ComentarioRepository;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,11 +37,27 @@ public class ProductoController {
   */
 
     //Listar productos
-    @GetMapping("/productos")
+    @GetMapping("/productos/")
     public String findAll(Model model){
         List<Producto> productos = this.productoRepository.findAll();
         model.addAttribute("productos", productos);
+        model.addAttribute("categorias", this.categoriaRepository.findAll());
         return "producto/product-list";
+    }
+    //Listar productos por categoria
+    @GetMapping("/productos/{id}")
+    public String findAll(Model model, @PathVariable Long id){
+        Optional <Categoria> categoria = this.categoriaRepository.findById(id);
+        if (categoria.isPresent()) {
+            List<Producto> productos = this.productoRepository.findByCategoria(categoria.get());
+            model.addAttribute("productos", productos);
+            model.addAttribute("selectedCategoriaId", id);
+            model.addAttribute("categorias", this.categoriaRepository.findAll());
+            return "/producto/product-list";
+        }else{
+            return "redirect:/productos";
+        }
+
     }
     //Eliminar producto
     @GetMapping("/productos/del/{id}")
@@ -87,9 +105,26 @@ public class ProductoController {
         Optional<Producto> producto = this.productoRepository.findById(id);
         if(producto.isPresent()){
             model.addAttribute("producto", producto.get());
+            model.addAttribute("comentario" , new Comentario());
             return "/producto/producto-view";
         }else{
             return "redirect:/productos";
         }
+    }
+    @PostMapping("/productos/view/{id}")
+    public String comentar(@PathVariable Long id,@Valid Comentario comentario, BindingResult bindingResult, Model model){
+        Optional<Producto> producto = this.productoRepository.findById(id);
+        if(producto.isPresent()) {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("producto",producto.get());
+                return "/producto/producto-view";
+            }
+            comentario.setProducto(producto.get());
+            comentario.setFecha(LocalDate.now());
+            this.comentarioRepository.save(comentario);
+            return "redirect:/productos/view/" + id;
+        }
+        this.comentarioRepository.save(comentario);
+        return "redirect:/productos";
     }
 }

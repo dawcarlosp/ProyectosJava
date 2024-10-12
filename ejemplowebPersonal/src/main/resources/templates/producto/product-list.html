@@ -18,10 +18,18 @@
                 <a class="nav-link active" aria-current="page" th:href="@{/productos}">Productos</a>
                 <a class="nav-link" th:href="@{/categorias}">Categorias</a>
                 <a class="nav-link" th:href="@{/comentarios}">Comentarios</a>
+                <select id="categoria" class="form-select mb-2" name="filtro" onchange="location.href='/productos/'+ this.value">
+                    <option value="" selected>-- Filtrar por Categoria --</option>
+                    <option th:each="categoria : ${categorias}"
+                            th:value="${categoria.id}"
+                            th:text="${categoria.nombre}"
+                            th:selected="${categoria.id == selectedCategoriaId}">Opción</option>
+                </select>
             </div>
         </div>
     </div>
 </nav>
+
 
     <div class="container mt-5 table-responsive">
         <h1 class="text-center mb-4">Lista de Productos</h1>
