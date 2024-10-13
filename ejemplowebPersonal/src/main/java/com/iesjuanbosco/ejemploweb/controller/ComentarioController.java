@@ -92,4 +92,14 @@ public class ComentarioController {
         this.comentarioRepository.save(comentario);
         return "redirect:/comentarios";
     }
+    @GetMapping("/comentarios/view/{id}")
+    public String verComentario(@PathVariable Long id, Model model){
+        Optional<Comentario> comentario = this.comentarioRepository.findById(id);
+        if(comentario.isPresent()){
+            model.addAttribute("comentario", comentario.get());
+            return "/comentario/comentario-view";
+        }else{
+            return "redirect:/comentarios";
+        }
+    }
 }
