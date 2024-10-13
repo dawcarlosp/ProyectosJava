@@ -106,6 +106,7 @@ public class ProductoController {
         if(producto.isPresent()){
             model.addAttribute("producto", producto.get());
             model.addAttribute("comentario" , new Comentario());
+            model.addAttribute("comentarios", this.comentarioRepository.findComentarioByProducto(producto.get()));
             return "/producto/producto-view";
         }else{
             return "redirect:/productos/";
