@@ -63,7 +63,7 @@ public class ProductoController {
     @GetMapping("/productos/del/{id}")
     public String deleteProductoVista(@PathVariable Long id){
         this.productoRepository.deleteById(id);
-        return "redirect:/productos";
+        return "redirect:/productos/";
     }
     //Alta producto
     @GetMapping("/productos/new")
@@ -79,7 +79,7 @@ public class ProductoController {
             return "/producto/producto-new";
         }
            this.productoRepository.save(producto);
-           return "redirect:/productos";
+           return "redirect:/productos/";
     }
     //Modificar producto
     @GetMapping("/productos/edit/{id}")
@@ -91,13 +91,13 @@ public class ProductoController {
             modelo.addAttribute("producto",pro.get());
             return "/producto/producto-edit";
         }else {
-            return "redirect:/productos";
+            return "redirect:/productos/";
         }
     }
     @PostMapping("/productos/edit/{id}")
         public String editProducto(Producto producto){
             this.productoRepository.save(producto);
-            return "redirect:/productos";
+            return "redirect:/productos/";
     }
     //Visualizar productos individualmente
     @GetMapping("/productos/view/{id}")
@@ -108,23 +108,7 @@ public class ProductoController {
             model.addAttribute("comentario" , new Comentario());
             return "/producto/producto-view";
         }else{
-            return "redirect:/productos";
+            return "redirect:/productos/";
         }
-    }
-    @PostMapping("/productos/view/{id}")
-    public String comentar(@PathVariable Long id,@Valid Comentario comentario, BindingResult bindingResult, Model model){
-        Optional<Producto> producto = this.productoRepository.findById(id);
-        if(producto.isPresent()) {
-            if (bindingResult.hasErrors()) {
-                model.addAttribute("producto",producto.get());
-                return "/producto/producto-view";
-            }
-            comentario.setProducto(producto.get());
-            comentario.setFecha(LocalDate.now());
-            this.comentarioRepository.save(comentario);
-            return "redirect:/productos/view/" + id;
-        }
-        this.comentarioRepository.save(comentario);
-        return "redirect:/productos";
     }
 }

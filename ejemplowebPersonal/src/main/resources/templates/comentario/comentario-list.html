@@ -44,7 +44,7 @@
       </td>
       <td th:text="${comentario.texto}"></td>
       <td th:text="${comentario.fecha}"></td>
-      <td th:text="${comentario.producto}"></td>
+      <td th:text="${comentario?.producto?.titulo}"></td>
       <td>
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
           <a th:href="@{/comentarios/del/{id}(id=${comentario.id})}">

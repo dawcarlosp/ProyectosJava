@@ -15,7 +15,7 @@
       <a th:href="@{/productos/}"><i class="bi bi-arrow-return-left"></i></a>
     </div>
     <div class="container-sm">
-        <form th:action="@{/comentarios/new}" method="POST" th:object="${comentario}">
+        <form th:action="@{/productos/comentarios/new/{id}(id=${producto.id})}" method="POST" th:object="${comentario}">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Titulo</label>
                 <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="Titulo" th:field="*{titulo}">
@@ -26,13 +26,8 @@
                 </textarea>
                 <p th:if="${#fields.hasErrors('texto')}" th:errors="*{texto}" class="alert alert-warning mb-3"></p>
 
-                <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" name="fecha" id="fecha" aria-describedby="fecha"
-                       th:field="*{fecha}">
-                <p th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}" class="alert alert-warning mb-3"></p>
-
             </div>
-            <button type="submit" class="btn btn-primary">Dar de alta nuevo Comentario</button>
+            <button type="Submit" class="btn btn-primary">Dar de alta nuevo Comentario</button>
         </form>
     </div>
 </body>
