@@ -72,4 +72,24 @@ public class ComentarioController {
         this.comentarioRepository.deleteById(id);
         return "redirect:/comentarios";
     }
+    //editar comentario
+    @GetMapping("/comentarios/edit/{id}")
+    public String editComentario(Model model, @PathVariable Long id){
+        Optional<Comentario> comentario = this.comentarioRepository.findById(id);
+        if(comentario.isPresent()){
+            model.addAttribute("comentario",comentario.get());
+            model.addAttribute("productos", this.productoRepository.findAll());
+            return "comentario/comentario-edit";
+        }else{
+            return "redirect:/comentarios";
+        }
+    }
+    @PostMapping("/comentarios/edit/{id}")
+    public String editComentarioP(Model model, Comentario comentario, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "comentario/comentario-edit";
+        }
+        this.comentarioRepository.save(comentario);
+        return "redirect:/comentarios";
+    }
 }
