@@ -33,6 +33,7 @@ public class ComentarioController {
         if(producto.isPresent()) {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("producto",producto.get());
+                model.addAttribute("comentarios",this.comentarioRepository.findByProductoOrderByFechaDesc(producto.get()));
                 return "/producto/producto-view";
             }
             comentario.setProducto(producto.get());

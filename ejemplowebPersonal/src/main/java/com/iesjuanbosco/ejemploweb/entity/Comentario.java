@@ -1,13 +1,15 @@
 package com.iesjuanbosco.ejemploweb.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 import java.time.LocalDate;
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder //Patron Builder
 @Table(name = "comentarios")
 public class Comentario {
     //id, titulo, texto, fecha, y producto relacionado
@@ -15,23 +17,16 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 200)
+    @NotBlank
     private String titulo;
     @Column(length = 2000)
+    @NotBlank
     private String texto;
     private LocalDate fecha;
     @ManyToOne(targetEntity = Producto.class)
     private Producto producto;
 
-    public Comentario() {
-    }
 
-    public Comentario(Long id, String titulo, String texto, LocalDate fecha, Producto producto) {
-        this.id = id;
-        this.titulo = titulo;
-        this.texto = texto;
-        this.fecha = fecha;
-        this.producto = producto;
-    }
 
     public Long getId() {
         return id;

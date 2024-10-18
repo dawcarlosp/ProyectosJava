@@ -2,16 +2,17 @@ package com.iesjuanbosco.ejemploweb.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity //Especifica que esta clase es una entidad
 //Indica que la tabla en la base de datos relacionada con esta entidad
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder //Patron Builder
 @Table(name = "productos")
 public class Producto {
     @Id //Esta anotación especifica que este campo va a ser la clave principal de la tabla en la base de datos
@@ -43,9 +44,6 @@ public class Producto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }
-
-    public Producto() {
     }
 
     public Long getId() {

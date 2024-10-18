@@ -6,8 +6,10 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder //Patron Builder
 @Table(name = "categorias")
 public class Categoria {
     @Id
@@ -15,6 +17,7 @@ public class Categoria {
     private Long id;
     private String nombre;
     private String descripcion;
+    private String foto;
     //CascadeType.ALL
     //El crud que se haga en categoria, se aplica automaticamente a las intancias de producto
     @OneToMany(targetEntity = Producto.class, cascade = CascadeType.ALL, mappedBy = "categoria")
@@ -22,8 +25,6 @@ public class Categoria {
     //Esto significa que Categoria no es la dueña de la relación. No va a generar una columna o tabla adicional en la base de datos para esta relación. Solo "sigue" la relación gestionada por Producto.
     private List productos = new ArrayList();
 
-    public Categoria() {
-    }
 
     public Categoria(Long id, String nombre, String descripcion) {
         this.id = id;

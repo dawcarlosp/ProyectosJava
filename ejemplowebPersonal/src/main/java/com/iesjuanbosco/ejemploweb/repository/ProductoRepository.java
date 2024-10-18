@@ -19,4 +19,14 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     Double importe();
     @Query("SELECT SUM(p.precio*p.cantidad) FROM Producto p WHERE p.categoria.id= :id")
     Double importeCategoria(@Param("id") Long id);
+    List<Producto> findFirstByPrecioOrderByPrecioDesc(Double precio);
+
+    @Query("SELECT COUNT(p) FROM Producto p WHERE p.categoria.id = :categoriaId")
+    long countByIdCategoria(@Param("categoriaId") Long categoriaId);
+
+    @Query(value = "SELECT COUNT(*) FROM producto WHERE categoria_id = :categoriaId", nativeQuery = true)
+    Long countByIdCategoriaNativa(@Param("categoriaId") Long categoriaId);
+
+    @Query("SELECT AVG(p.precio) FROM Producto p WHERE p.categoria.id = :categoriaId")
+    Double AVGPrecioByCategoria(@Param("categoriaId") Long categoriaId);
 }

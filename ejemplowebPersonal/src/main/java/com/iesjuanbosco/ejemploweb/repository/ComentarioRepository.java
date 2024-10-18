@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ComentarioRepository extends JpaRepository<Comentario,Long> {
     List<Comentario> findComentarioByProducto(Producto producto);
+    List<Comentario> findComentarioByProductoOrderByProductoDesc(Producto producto);
+    List<Comentario> findByProductoOrderByFechaDesc(Producto producto);
 }
