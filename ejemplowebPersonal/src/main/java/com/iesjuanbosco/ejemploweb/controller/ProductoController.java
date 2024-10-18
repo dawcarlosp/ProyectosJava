@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,7 @@ public class ProductoController {
         List<Producto> productos = this.productoRepository.findAll();
         model.addAttribute("productos", productos);
         model.addAttribute("categorias", this.categoriaRepository.findAll());
+        model.addAttribute("importe", this.productoRepository.importe());
         return "producto/product-list";
     }
     //Listar productos por categoria
@@ -52,6 +54,7 @@ public class ProductoController {
             List<Producto> productos = this.productoRepository.findByCategoria(categoria.get());
             model.addAttribute("productos", productos);
             model.addAttribute("selectedCategoriaId", id);
+            model.addAttribute("importeCategoria", this.productoRepository.importeCategoria(id));
             model.addAttribute("categorias", this.categoriaRepository.findAll());
             return "/producto/product-list";
         }else{

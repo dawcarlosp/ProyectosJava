@@ -42,6 +42,7 @@
                 <th>CANTIDAD</th>
                 <th>PRECIO</th>
                 <th></th>
+                <th>IMPORTE INDIVIDUAL</th>
             </tr>
             </thead>
             <tbody>
@@ -55,7 +56,7 @@
                     <p th:if="${producto.categoria != null}" th:text="${producto.categoria.nombre}"></p>
                 </td>
                 <td th:text="${producto.cantidad}"></td>
-                <td th:text="${producto.precio}"></td>
+                <td th:text="${producto.precio + '€'}"></td>
                 <td>
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
                         <a th:href="@{/productos/del/{id}(id=${producto.id})}">
@@ -68,6 +69,19 @@
                             <i class="bi bi-eye text-black fs-1"></i>
                         </a></span>
                     </div>
+                </td>
+                <td th:text="${producto.getImporte()+'€'}" class="text-center">Importe del producto</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="bg-dark text-light text-center">Importe total</td>
+                <td class="d-flex justify-content-center align-items-center">
+                    <p th:if="${importe != null}" th:text="${importe+' €'}"></p>
+                    <p th:if="${importeCategoria != null}" th:text="${importeCategoria+' €'}"></p>
                 </td>
             </tr>
             </tbody>

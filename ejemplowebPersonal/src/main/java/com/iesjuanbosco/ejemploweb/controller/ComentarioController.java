@@ -40,7 +40,6 @@ public class ComentarioController {
             this.comentarioRepository.save(comentario);
             return "redirect:/productos/view/" + id;
         }
-        this.comentarioRepository.save(comentario);
         return "redirect:/productos";
     }
     //Listar comentarios

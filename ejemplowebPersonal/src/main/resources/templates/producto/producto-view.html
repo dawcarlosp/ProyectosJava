@@ -13,7 +13,7 @@
       <h1 th:text="'Titulo: ' + ${producto.titulo}">Titulo</h1>
         <h3 th:text="'Categoria: ' + ${producto.categoria.nombre}">Categoria</h3>
       <h4 th:text="'Cantidad: ' + ${producto.cantidad}">Cantidad</h4>
-      <h5 th:text="'Precio: ' + ${producto.precio}">Precio</h5>
+      <h5 th:text="'Precio: ' + ${producto.precio+'€'}">Precio</h5>
       <a th:href="@{/productos/}"><i class="bi bi-arrow-return-left text-light fs-1"></i></a>
         </div>
         <div class="col-8"><h1 class="text-center ">Lista de Comentarios</h1></div>

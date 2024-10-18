@@ -75,7 +75,9 @@ public class Producto {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
-
+    public Double getImporte(){
+        return this.precio*this.cantidad;
+    }
     @Override
     public String toString() {
         return "Producto{" +
