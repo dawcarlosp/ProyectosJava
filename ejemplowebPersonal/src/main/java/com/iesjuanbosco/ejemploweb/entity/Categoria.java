@@ -1,10 +1,13 @@
 package com.iesjuanbosco.ejemploweb.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 @Entity
+@Getter
+@Setter
 @Table(name = "categorias")
 public class Categoria {
     @Id
