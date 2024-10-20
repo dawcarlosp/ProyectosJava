@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="Nombre"
@@ -16,6 +16,9 @@
       <label for="descripcion" class="form-label">Descripcion</label>
       <input type="text" class="form-control" name="descripcion" id="descripcion" aria-describedby="Descripcion"
              th:value="${categoria.descripcion}">
+
+      <label for="foto" class="form-label">Foto</label>
+      <input type="file" class="form-control" name="foto" id="foto" aria-describedby="foto">
 
     </div>
     <button type="submit" class="btn btn-primary">Modificar categoria</button>

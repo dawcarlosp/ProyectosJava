@@ -1,14 +1,14 @@
 package com.iesjuanbosco.ejemploweb.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CategoriaCosteMedioDTO {
+    private Long id;
     private String nombreCategoria;
     private Double costeMedio;
-    private Double numeroProductos;
+    private Long numeroProductos;
 }
