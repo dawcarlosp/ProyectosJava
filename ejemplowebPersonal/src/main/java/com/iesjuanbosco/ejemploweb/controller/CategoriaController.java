@@ -56,11 +56,31 @@ public class CategoriaController {
         return "/categoria/categoria-new";
     }
     @PostMapping("/categorias/new")
-    public String saveCategoria(@Valid Categoria categoria, BindingResult bindingResult, Model model){
+    public String saveCategoria(@Valid Categoria categoria, BindingResult bindingResult, Model model, @RequestParam("foto")MultipartFile foto){
         if(bindingResult.hasErrors()){
             return "/categoria/categoria-new";
         }else{
             this.categoriaRepository.save(categoria);
+            try {
+                if (!foto.isEmpty()) {
+                    // Generar una ruta única para el archivo y guardarlo en el sistema de archivos
+                    String nombreArchivo = System.currentTimeMillis() + "_" + foto.getOriginalFilename(); // Nombre único para evitar colisiones
+                    String rutaArchivo = "src/main/resources/static/fotos/categorias/" + nombreArchivo; // Ruta donde se almacenará el archivo
+                    // Guardar el archivo en el sistema de archivos
+                    Path path = Paths.get(rutaArchivo);
+                    Files.write(path, foto.getBytes());
+
+                    // Asignar la ruta de la imagen al campo "foto" de la entidad
+                    categoria.setFoto(nombreArchivo);
+                }
+
+                // Guardar la entidad en la base de datos
+                this.categoriaRepository.save(categoria);
+
+                model.addAttribute("mensaje", "Entidad guardada con éxito");
+            } catch (Exception e) {
+                model.addAttribute("error", "Ocurrió un error al guardar la entidad");
+            }
             return "redirect:/categorias";
         }
     }

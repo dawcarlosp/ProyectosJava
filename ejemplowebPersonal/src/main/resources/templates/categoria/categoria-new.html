@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-  <form th:action="@{/categorias/new}" method="POST" th:object="${categoria}">
+  <form th:action="@{/categorias/new}" method="POST" th:object="${categoria}" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="Nombre" th:field="*{nombre}">
@@ -17,6 +17,8 @@
       <input type="text" class="form-control" name="nombre" id="descripcion" aria-describedby="Descripcion" th:field="*{descripcion}">
       <p th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class="alert alert-warning mb-3"></p>
 
+      <label for="foto" class="form-label">Foto</label>
+      <input type="file" class="form-control" name="foto" id="foto" aria-describedby="foto">
     </div>
     <button type="submit" class="btn btn-primary">Dar de alta nueva Categoria</button>
   </form>
