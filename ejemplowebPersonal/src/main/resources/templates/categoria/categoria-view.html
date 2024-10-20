@@ -12,7 +12,9 @@
         <h1 th:text="'Nombre: ' + ${categoria.nombre}"></h1>
     </a>
     <h3 th:text="'Descripcion: ' + ${categoria.descripcion}"></h3>
-    <a th:href="@{/categorias}"><i class="bi bi-arrow-return-left"></i></a>
+    <img th:src="@{/fotos/categorias/{foto}(foto=${categoria.foto})}" alt="Categoria Foto" style="width: 100%; height: auto;">
+    <br>
+    <a th:href="@{/categorias}"><i class="bi bi-arrow-return-left fs-1"></i></a>
 </div>
 </body>
 </html>
