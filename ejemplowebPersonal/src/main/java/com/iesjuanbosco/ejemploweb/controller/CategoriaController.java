@@ -11,11 +11,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Controller
@@ -56,31 +58,25 @@ public class CategoriaController {
         return "/categoria/categoria-new";
     }
     @PostMapping("/categorias/new")
-    public String saveCategoria(@Valid Categoria categoria, BindingResult bindingResult, Model model, @RequestParam("foto")MultipartFile foto){
+    public String saveCategoria(@ModelAttribute("categoria") Categoria categoria, BindingResult bindingResult, Model model, @RequestAttribute("file")MultipartFile file){
         if(bindingResult.hasErrors()){
             return "/categoria/categoria-new";
         }else{
-            this.categoriaRepository.save(categoria);
+            //Cambiamos el nombre el archivo
+            UUID nombreUnico = UUID.randomUUID();
+            String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            String nuevoNombreFoto = nombreUnico + extension;
+            //Guardar el archivo en disco
+            Path ruta = Paths.get("uploads/imagesCategorias" + File.separator + nuevoNombreFoto);
             try {
-                if (!foto.isEmpty()) {
-                    // Generar una ruta única para el archivo y guardarlo en el sistema de archivos
-                    String nombreArchivo = System.currentTimeMillis() + "_" + foto.getOriginalFilename(); // Nombre único para evitar colisiones
-                    String rutaArchivo = "src/main/resources/static/fotos/categorias/" + nombreArchivo; // Ruta donde se almacenará el archivo
-                    // Guardar el archivo en el sistema de archivos
-                    Path path = Paths.get(rutaArchivo);
-                    Files.write(path, foto.getBytes());
-
-                    // Asignar la ruta de la imagen al campo "foto" de la entidad
-                    categoria.setFoto(nombreArchivo);
-                }
-
-                // Guardar la entidad en la base de datos
-                this.categoriaRepository.save(categoria);
-
-                model.addAttribute("mensaje", "Entidad guardada con éxito");
+                byte[] bytes = file.getBytes();
+                Files.write(ruta, bytes);
             } catch (Exception e) {
                 model.addAttribute("error", "Ocurrió un error al guardar la entidad");
             }
+            //Guardamos la ruta en la BD
+            categoria.setFoto(nuevoNombreFoto);
+            categoriaRepository.save(categoria);
             return "redirect:/categorias";
         }
     }

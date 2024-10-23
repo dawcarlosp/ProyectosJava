@@ -67,7 +67,7 @@
             </td>
             <td th:text="${categoria.descripcion}"></td>
             <td>
-                <img th:src="@{/fotos/categorias/{foto}(foto=${categoria.foto})}" alt="Categoria Foto" style="width: 100px; height: auto;">
+                <img th:src="@{'/imagesCategorias/' + ${categoria.foto}}" alt="Categoria Foto" style="width: 100px; height: auto;">
             </td>
             <td>
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
