@@ -97,35 +97,28 @@ public class CategoriaController {
             return "redirect:/categorias";
         }
     }
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        // Excluimos el campo "foto" del binding automático
-        binder.setDisallowedFields("foto");
-    }
     @PostMapping("/categorias/edit/{id}")
-    public String editCategoria(@ModelAttribute Categoria categoria, @RequestParam("foto")MultipartFile foto, Model model){
-        try {
-            if (!foto.isEmpty()) {
-                // Generar una ruta única para el archivo y guardarlo en el sistema de archivos
-                String nombreArchivo = System.currentTimeMillis() + "_" + foto.getOriginalFilename(); // Nombre único para evitar colisiones
-                String rutaArchivo = "src/main/resources/static/fotos/categorias/" + nombreArchivo; // Ruta donde se almacenará el archivo
-                // Guardar el archivo en el sistema de archivos
-                Path path = Paths.get(rutaArchivo);
-                Files.write(path, foto.getBytes());
-
-                // Asignar la ruta de la imagen al campo "foto" de la entidad
-                categoria.setFoto(nombreArchivo);
+    public String editCategoria(@ModelAttribute Categoria categoria, @RequestAttribute("file")MultipartFile file, Model model, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "/categoria/categoria-edit";
+        }else{
+            //Cambiamos el nombre el archivo
+            UUID nombreUnico = UUID.randomUUID();
+            String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            String nuevoNombreFoto = nombreUnico + extension;
+            //Guardar el archivo en disco
+            Path ruta = Paths.get("uploads/imagesCategorias" + File.separator + nuevoNombreFoto);
+            try {
+                byte[] bytes = file.getBytes();
+                Files.write(ruta, bytes);
+            } catch (Exception e) {
+                model.addAttribute("error", "Ocurrió un error al guardar la entidad");
             }
-
-            // Guardar la entidad en la base de datos
+            //Guardamos la ruta en la BD
+            categoria.setFoto(nuevoNombreFoto);
             categoriaRepository.save(categoria);
-
-            model.addAttribute("mensaje", "Entidad guardada con éxito");
-        } catch (Exception e) {
-            model.addAttribute("error", "Ocurrió un error al guardar la entidad");
+            return "redirect:/categorias";
         }
-
-        return "redirect:/categorias";
     }
     //Visualizar categoria
     @GetMapping("/categorias/view/{id}")
