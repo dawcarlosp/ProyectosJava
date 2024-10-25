@@ -2,17 +2,21 @@ package com.iesjuanbosco.ejemploweb.controller;
 
 import com.iesjuanbosco.ejemploweb.entity.Categoria;
 import com.iesjuanbosco.ejemploweb.entity.Comentario;
+import com.iesjuanbosco.ejemploweb.entity.Foto;
 import com.iesjuanbosco.ejemploweb.entity.Producto;
 import com.iesjuanbosco.ejemploweb.repository.CategoriaRepository;
 import com.iesjuanbosco.ejemploweb.repository.ComentarioRepository;
 import com.iesjuanbosco.ejemploweb.repository.ProductoRepository;
+import com.iesjuanbosco.ejemploweb.service.ProductoService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +27,8 @@ import java.util.Optional;
 @Controller//Anotación que le indica a Spring que esta clase es un controlador
 public class ProductoController {
     //Para acceder al repositorio creamos una propiedad y la asignamos en el contructor
+    @Autowired
+    private ProductoService productoService;
     private ProductoRepository productoRepository;
     private CategoriaRepository categoriaRepository;
     private ComentarioRepository comentarioRepository;
@@ -77,11 +83,11 @@ public class ProductoController {
         return "/producto/producto-new";
     }
     @PostMapping("/productos/new")
-    public String newProducto(@Valid Producto producto, BindingResult bindingResult){
+    public String newProducto(@Valid Producto producto, BindingResult bindingResult, MultipartFile files[]){
         if(bindingResult.hasErrors()){
             return "/producto/producto-new";
         }
-           this.productoRepository.save(producto);
+           this.productoService.guardarProducto(producto,files);
            return "redirect:/productos/";
     }
     //Modificar producto
@@ -106,10 +112,21 @@ public class ProductoController {
     @GetMapping("/productos/view/{id}")
         public String view(@PathVariable Long id, Model model){
         Optional<Producto> producto = this.productoRepository.findById(id);
+        List<Foto> fotosRutaCompleta = producto.get().getFotos();
+        List<Foto> fotos = new ArrayList<>();
+        for(Foto foto : fotosRutaCompleta){
+            String trozos[] = foto.getRuta().split("/");
+            String valido = trozos[1]+ '/' + trozos[2];
+            Foto fotoN = new Foto();
+            fotoN.setRuta(valido);
+            fotoN.setProducto(foto.getProducto());
+            fotos.add(fotoN);
+        }
         if(producto.isPresent()){
             model.addAttribute("producto", producto.get());
             model.addAttribute("comentario" , new Comentario());
             model.addAttribute("comentarios", this.comentarioRepository.findByProductoOrderByFechaDesc(producto.get()));
+            model.addAttribute("fotos", fotos);
             return "/producto/producto-view";
         }else{
             return "redirect:/productos/";

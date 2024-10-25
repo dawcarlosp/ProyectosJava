@@ -21,7 +21,7 @@ import java.util.UUID;
 public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
-    private static final List<String> TIPOS_PERMITIDOS = List.of("image/jpeg","image/png","image/png","image/gif","image/avif","image/webp","image/jpg");
+    private static final List<String> TIPOS_PERMITIDOS = List.of("image/jpeg","image/png","image/gif","image/avif","image/webp","image/jpg");
     private static final long MAX_FILE_SIZE = 10000000;
     private static final String UPLOADS_DIRECTORY = "uploads/imagesProductos";
     public List<Producto> findAll() {

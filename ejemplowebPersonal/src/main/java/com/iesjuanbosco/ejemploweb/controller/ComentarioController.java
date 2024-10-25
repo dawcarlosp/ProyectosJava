@@ -5,7 +5,9 @@ import com.iesjuanbosco.ejemploweb.entity.Comentario;
 import com.iesjuanbosco.ejemploweb.entity.Producto;
 import com.iesjuanbosco.ejemploweb.repository.ComentarioRepository;
 import com.iesjuanbosco.ejemploweb.repository.ProductoRepository;
+import com.iesjuanbosco.ejemploweb.service.ProductoService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,9 @@ import java.util.Optional;
 
 @Controller
 public class ComentarioController {
+    @Autowired
+    private ProductoService productoService;
+
     private ComentarioRepository comentarioRepository;
     private ProductoRepository productoRepository;
     public ComentarioController(ComentarioRepository comentarioRepository, ProductoRepository productoRepository) {

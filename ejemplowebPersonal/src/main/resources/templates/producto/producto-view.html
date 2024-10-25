@@ -61,5 +61,8 @@
             </div>
     </div>
 </div>
+<div class="container d-flex justify-content-center" th:each="foto : ${fotos}" th:object="${fotos}">
+    <img th:src="@{'/'+${foto.ruta}}" width="300" height="250"/>
+</div>
 </body>
 </html>
