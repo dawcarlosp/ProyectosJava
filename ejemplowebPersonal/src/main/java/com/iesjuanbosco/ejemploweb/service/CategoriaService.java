@@ -42,7 +42,7 @@ public class CategoriaService {
     }
     public void guardarCategoria(Categoria categoria, MultipartFile file){
         if(file == null || file.isEmpty()){
-            throw new IllegalArgumentException("Archvo no seleccionado");
+            throw new IllegalArgumentException("Archivo no seleccionado");
         }
         if(!TIPOS_PERMITIDOS.contains((file.getContentType()))){
             throw new IllegalArgumentException("El archivo seleccionado no es una imagen");
