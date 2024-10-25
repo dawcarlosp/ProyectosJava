@@ -23,5 +23,5 @@ public interface CategoriaRepository extends JpaRepository<Categoria,Long> {
 
     @Query("SELECT new com.iesjuanbosco.ejemploweb.DTO.CategoriaCosteMedioDTO(c.id, c.nombre, AVG(p.precio),COUNT(p))" +
             "FROM Categoria c LEFT JOIN c.productos p GROUP BY c.id")
-    List<CategoriaCosteMedioDTO> obtenerCosteMedioPorCategorias();
+    List<CategoriaCosteMedioDTO> obtenerCategoriasConStats();
 }
