@@ -1,5 +1,6 @@
 package com.iesjuanbosco.ejemploweb.service;
 
+import com.iesjuanbosco.ejemploweb.entity.Categoria;
 import com.iesjuanbosco.ejemploweb.entity.Foto;
 import com.iesjuanbosco.ejemploweb.entity.Producto;
 import com.iesjuanbosco.ejemploweb.repository.ProductoRepository;
@@ -68,5 +69,20 @@ public class ProductoService {
             }
         }
         productoRepository.save(producto);
+    }
+    public double importe(){
+        return this.productoRepository.importe();
+    }
+    public List<Producto> findByCategoria(Categoria categoria){
+        return this.productoRepository.findByCategoria(categoria);
+    }
+    public Double importeCategoria(Long id){
+        return this.importeCategoria(id);
+    }
+    public void deleteById(Long id){
+        this.productoRepository.deleteById(id);
+    }
+    public void save(Producto producto){
+        this.productoRepository.save(producto);
     }
 }

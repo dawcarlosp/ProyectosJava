@@ -48,4 +48,7 @@ public class ComentarioService {
     public Optional findById(Long id){
         return this.comentarioRepository.findById(id);
     }
+    public List<Comentario> findByProductoOrderByFechaDesc(Producto producto){
+        return this.comentarioRepository.findByProductoOrderByFechaDesc(producto);
+    }
 }

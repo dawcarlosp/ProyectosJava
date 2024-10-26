@@ -7,6 +7,8 @@ import com.iesjuanbosco.ejemploweb.entity.Producto;
 import com.iesjuanbosco.ejemploweb.repository.CategoriaRepository;
 import com.iesjuanbosco.ejemploweb.repository.ComentarioRepository;
 import com.iesjuanbosco.ejemploweb.repository.ProductoRepository;
+import com.iesjuanbosco.ejemploweb.service.CategoriaService;
+import com.iesjuanbosco.ejemploweb.service.ComentarioService;
 import com.iesjuanbosco.ejemploweb.service.ProductoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +31,10 @@ public class ProductoController {
     //Para acceder al repositorio creamos una propiedad y la asignamos en el contructor
     @Autowired
     private ProductoService productoService;
-    private ProductoRepository productoRepository;
-    private CategoriaRepository categoriaRepository;
-    private ComentarioRepository comentarioRepository;
-    public ProductoController(ProductoRepository repository, CategoriaRepository categoriaREpository, ComentarioRepository comentarioRepository){
-        this.productoRepository = repository;
-        this.categoriaRepository = categoriaREpository;
-        this.comentarioRepository = comentarioRepository;
-    }
+    @Autowired
+    private CategoriaService categoriaService;
+    @Autowired
+    private ComentarioService comentarioService;
     /*
   GET /productos
   Con la anotación GetMapping le indicamos a Spring que el siguiente metodo se va ejecutar cuando
@@ -46,22 +44,22 @@ public class ProductoController {
     //Listar productos
     @GetMapping("/productos/")
     public String findAll(Model model){
-        List<Producto> productos = this.productoRepository.findAll();
+        List<Producto> productos = this.productoService.findAll();
         model.addAttribute("productos", productos);
-        model.addAttribute("categorias", this.categoriaRepository.findAll());
-        model.addAttribute("importe", this.productoRepository.importe());
+        model.addAttribute("categorias", this.categoriaService.findAll());
+        model.addAttribute("importe", this.productoService.importe());
         return "producto/product-list";
     }
     //Listar productos por categoria
     @GetMapping("/productos/{id}")
     public String findAll(Model model, @PathVariable Long id){
-        Optional <Categoria> categoria = this.categoriaRepository.findById(id);
+        Optional <Categoria> categoria = this.categoriaService.findById(id);
         if (categoria.isPresent()) {
-            List<Producto> productos = this.productoRepository.findByCategoria(categoria.get());
+            List<Producto> productos = this.productoService.findByCategoria(categoria.get());
             model.addAttribute("productos", productos);
             model.addAttribute("selectedCategoriaId", id);
-            model.addAttribute("importeCategoria", this.productoRepository.importeCategoria(id));
-            model.addAttribute("categorias", this.categoriaRepository.findAll());
+            model.addAttribute("importeCategoria", this.productoService.importeCategoria(id));
+            model.addAttribute("categorias", this.categoriaService.findAll());
             return "/producto/product-list";
         }else{
             return "redirect:/productos";
@@ -71,13 +69,13 @@ public class ProductoController {
     //Eliminar producto
     @GetMapping("/productos/del/{id}")
     public String deleteProductoVista(@PathVariable Long id){
-        this.productoRepository.deleteById(id);
+        this.productoService.deleteById(id);
         return "redirect:/productos/";
     }
     //Alta producto
     @GetMapping("/productos/new")
     public String newProductoVista(Model model){
-        List<Categoria> categorias = this.categoriaRepository.findAll();
+        List<Categoria> categorias = this.categoriaService.findAll();
         model.addAttribute("categorias", categorias);
         model.addAttribute("producto", new Producto());
         return "/producto/producto-new";
@@ -93,8 +91,8 @@ public class ProductoController {
     //Modificar producto
     @GetMapping("/productos/edit/{id}")
         public String editProductoVista(@PathVariable Long id, Model modelo){
-        Optional<Producto> pro = this.productoRepository.findById(id);
-        List<Categoria> categorias = this.categoriaRepository.findAll();
+        Optional<Producto> pro = this.productoService.findById(id);
+        List<Categoria> categorias = this.categoriaService.findAll();
         modelo.addAttribute("categorias", categorias);
         if(pro.isPresent()){
             modelo.addAttribute("producto",pro.get());
@@ -105,13 +103,13 @@ public class ProductoController {
     }
     @PostMapping("/productos/edit/{id}")
         public String editProducto(Producto producto){
-            this.productoRepository.save(producto);
+            this.productoService.save(producto);
             return "redirect:/productos/";
     }
     //Visualizar productos individualmente
     @GetMapping("/productos/view/{id}")
         public String view(@PathVariable Long id, Model model){
-        Optional<Producto> producto = this.productoRepository.findById(id);
+        Optional<Producto> producto = this.productoService.findById(id);
         List<Foto> fotosRutaCompleta = producto.get().getFotos();
         List<Foto> fotos = new ArrayList<>();
         for(Foto foto : fotosRutaCompleta){
@@ -125,7 +123,7 @@ public class ProductoController {
         if(producto.isPresent()){
             model.addAttribute("producto", producto.get());
             model.addAttribute("comentario" , new Comentario());
-            model.addAttribute("comentarios", this.comentarioRepository.findByProductoOrderByFechaDesc(producto.get()));
+            model.addAttribute("comentarios", this.comentarioService.findByProductoOrderByFechaDesc(producto.get()));
             model.addAttribute("fotos", fotos);
             return "/producto/producto-view";
         }else{

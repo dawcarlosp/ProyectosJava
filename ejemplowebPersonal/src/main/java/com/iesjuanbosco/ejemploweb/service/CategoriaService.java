@@ -24,6 +24,9 @@ public class CategoriaService {
     private static final long MAX_FILE_SIZE = 10000000;
     private static final String UPLOADS_DIRECTORY = "uploads/imagesCategorias";
 
+    public List<Categoria> findAll(){
+        return this.categoriaRepository.findAll();
+    }
     public List<CategoriaCosteMedioDTO> obtenerCategoriasConStats(){
         return this.categoriaRepository.obtenerCategoriasConStats();
     }
