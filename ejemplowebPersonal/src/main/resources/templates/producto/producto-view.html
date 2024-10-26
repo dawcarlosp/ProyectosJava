@@ -61,8 +61,37 @@
             </div>
     </div>
 </div>
-<div class="container d-flex justify-content-center" th:each="foto : ${fotos}" th:object="${fotos}">
-    <img th:src="@{'/'+${foto.ruta}}" width="300" height="250"/>
+<div class="container my-4">
+    <h1 class="text-center">Fotos del producto</h1>
+    <div class="row">
+        <!-- Thymeleaf loop para cada imagen -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="foto, index : ${fotos}">
+            <div class="card">
+                <a href="#" data-bs-toggle="modal" th:data-bs-target="${'#modal-' + index}">
+                    <img th:src="'/' + @{${foto.ruta}}" class="card-img-top" th:alt="${foto.producto}">
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Modales para cada imagen -->
+<div th:each="foto, index : ${fotos}">
+    <div class="modal fade" th:id="'modal-' + ${index}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Imagen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img th:src="@{${foto.ruta}}" class="img-fluid" alt="Imagen de galería">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
