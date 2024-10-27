@@ -28,6 +28,7 @@ public class Producto {
     private Double precio;
     @ManyToOne(targetEntity = Categoria.class)
    @JoinColumn(name = "id_categoria")
+    @NotNull(message = "Es obligatorio seleccionar una categoria")
     private Categoria categoria;
     @OneToMany(targetEntity = Comentario.class, cascade = CascadeType.ALL, mappedBy = "producto")
     private List<Comentario> comentarios = new ArrayList<Comentario>();

@@ -81,8 +81,9 @@ public class ProductoController {
         return "/producto/producto-new";
     }
     @PostMapping("/productos/new")
-    public String newProducto(@Valid Producto producto, BindingResult bindingResult, MultipartFile files[]){
+    public String newProducto(@Valid Producto producto, BindingResult bindingResult, MultipartFile files[], Model model){
         if(bindingResult.hasErrors()){
+            model.addAttribute("categorias", this.categoriaService.findAll());
             return "/producto/producto-new";
         }
            this.productoService.guardarProducto(producto,files);
@@ -104,7 +105,7 @@ public class ProductoController {
         }
     }
     @PostMapping("/productos/edit/{id}")
-        public String editProducto(Producto producto, MultipartFile files[], BindingResult bindingResult){
+        public String editProducto(Producto producto, MultipartFile files[], BindingResult bindingResult, Model model){
             if(!bindingResult.hasErrors()){
                 this.productoService.guardarProducto(producto,files);
                 return "redirect:/productos/";

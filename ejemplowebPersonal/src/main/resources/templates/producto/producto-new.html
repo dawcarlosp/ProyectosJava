@@ -20,6 +20,7 @@
                 th:text="${categoria.nombre}"
         >Opción</option>
       </select>
+      <p th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="alert alert-warning mb-3"></p>
 
       <label for="cantidad" class="form-label">Cantidad</label>
       <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="Cantidad" th:field="*{cantidad}">
