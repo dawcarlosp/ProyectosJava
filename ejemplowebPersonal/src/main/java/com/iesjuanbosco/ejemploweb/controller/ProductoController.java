@@ -104,9 +104,14 @@ public class ProductoController {
         }
     }
     @PostMapping("/productos/edit/{id}")
-        public String editProducto(Producto producto, MultipartFile files[]){
-            this.productoService.guardarProducto(producto,files);
-            return "redirect:/productos/";
+        public String editProducto(Producto producto, MultipartFile files[], BindingResult bindingResult){
+            if(!bindingResult.hasErrors()){
+                this.productoService.guardarProducto(producto,files);
+                return "redirect:/productos/";
+            }else{
+                return "redirect:/productos/edit/{id}";
+            }
+
     }
     //Visualizar productos individualmente
     @GetMapping("/productos/view/{id}")
