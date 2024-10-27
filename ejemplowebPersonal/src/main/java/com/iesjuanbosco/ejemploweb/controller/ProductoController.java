@@ -111,10 +111,10 @@ public class ProductoController {
                     this.productoService.guardarProducto(producto,files);
                     return "redirect:/productos/";
                 }catch(IllegalArgumentException ex){
-                    return "redirect:/productos/edit/{id}";
+                    return "redirect:/productos/";
                 }
             }else{
-                return "redirect:/productos/edit/{id}";
+                return "redirect:/productos/";
             }
 
     }
