@@ -96,14 +96,26 @@ public class ProductoController {
         modelo.addAttribute("categorias", categorias);
         if(pro.isPresent()){
             modelo.addAttribute("producto",pro.get());
+            //Para las fotos
+            List<Foto> fotosRutaCompleta = pro.get().getFotos();
+            List<Foto> fotos = new ArrayList<>();
+            for(Foto foto : fotosRutaCompleta){
+                String trozos[] = foto.getRuta().split("/");
+                String valido = trozos[1]+ '/' + trozos[2];
+                Foto fotoN = new Foto();
+                fotoN.setRuta(valido);
+                fotoN.setProducto(foto.getProducto());
+                fotos.add(fotoN);
+            }
+            modelo.addAttribute("fotos",fotos);
             return "/producto/producto-edit";
         }else {
             return "redirect:/productos/";
         }
     }
     @PostMapping("/productos/edit/{id}")
-        public String editProducto(Producto producto){
-            this.productoService.save(producto);
+        public String editProducto(Producto producto, MultipartFile files[]){
+            this.productoService.guardarProducto(producto,files);
             return "redirect:/productos/";
     }
     //Visualizar productos individualmente

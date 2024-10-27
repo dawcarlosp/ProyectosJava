@@ -37,6 +37,7 @@ public class ProductoService {
     public void saveProducto(Producto producto) {
         this.productoRepository.save(producto);
     }
+    //Metodo hecho por Samuel
     public void guardarProducto(Producto producto, MultipartFile[] files) {
         List<String> fotos = new ArrayList<>();
         for (MultipartFile file : files){

@@ -4,10 +4,11 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Editar producto</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
 <div class="container">
-    <form th:action="@{/productos/edit/{id}(id=${producto.id})}" method="POST" th:object="${producto}">
+    <form th:action="@{/productos/edit/{id}(id=${producto.id})}" method="POST" th:object="${producto}" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="titulo" class="form-label">Titulo</label>
             <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="Titulo"
@@ -29,7 +30,13 @@
             <label for="precio" class="form-label">Precio</label>
             <input type="number" class="form-control" name="precio" id="precio" aria-describedby="Precio" step="0.01"
                    th:field="*{precio}">
-
+            <label for="files" class="form-label">Añadir más imagenes</label>
+            <input type="file" class="form-control" name="files" id="files" aria-describedby="Files" multiple>
+            <div th:each="foto : ${fotos}" class="d-flex justify-content-center align-items-center  ">
+                <img th:src="@{'/'+${foto.ruta}}" width="10%" height="auto">
+                <a th:href="@{/productos/edit/{idP}/foto/del/{id}(idP=${producto.id},id=${foto.id})}"
+                ><i class="bi bi-x-square fs-1 text-danger"></i></a>
+            </div>
             <input type="hidden" name="id" th:field="*{id}">
         </div>
         <button type="submit" class="btn btn-primary">Modificar producto</button>
