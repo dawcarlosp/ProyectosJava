@@ -55,12 +55,13 @@ public class ProductoService {
             String nuevoNombreFoto = nombreUnico + extension;
             Path ruta = Paths.get(UPLOADS_DIRECTORY + File.separator + nuevoNombreFoto);
             String rutaTexto = ruta.toString();
+            String rutaValida = rutaTexto.substring(rutaTexto.indexOf('/'));
             try {
                 byte[] contenido = file.getBytes();
                 Files.write(ruta, contenido);
                 fotos.add(nuevoNombreFoto);
                 Foto fotillo = new Foto();
-                fotillo.setRuta(rutaTexto);
+                fotillo.setRuta(rutaValida);
                 fotillo.setProducto(producto);
                 productoRepository.save(producto);
                 producto.getFotos().add(fotillo);

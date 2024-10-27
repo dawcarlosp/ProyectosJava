@@ -97,17 +97,7 @@ public class ProductoController {
         if(pro.isPresent()){
             modelo.addAttribute("producto",pro.get());
             //Para las fotos
-            List<Foto> fotosRutaCompleta = pro.get().getFotos();
-            List<Foto> fotos = new ArrayList<>();
-            for(Foto foto : fotosRutaCompleta){
-                String trozos[] = foto.getRuta().split("/");
-                String valido = trozos[1]+ '/' + trozos[2];
-                Foto fotoN = new Foto();
-                fotoN.setRuta(valido);
-                fotoN.setProducto(foto.getProducto());
-                fotos.add(fotoN);
-            }
-            modelo.addAttribute("fotos",fotos);
+            modelo.addAttribute("fotos",pro.get().getFotos());
             return "/producto/producto-edit";
         }else {
             return "redirect:/productos/";
@@ -136,7 +126,7 @@ public class ProductoController {
             model.addAttribute("producto", producto.get());
             model.addAttribute("comentario" , new Comentario());
             model.addAttribute("comentarios", this.comentarioService.findByProductoOrderByFechaDesc(producto.get()));
-            model.addAttribute("fotos", fotos);
+            model.addAttribute("fotos", fotosRutaCompleta);
             return "/producto/producto-view";
         }else{
             return "redirect:/productos/";

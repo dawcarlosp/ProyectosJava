@@ -33,7 +33,7 @@
             <label for="files" class="form-label">Añadir más imagenes</label>
             <input type="file" class="form-control" name="files" id="files" aria-describedby="Files" multiple>
             <div th:each="foto : ${fotos}" class="d-flex justify-content-center align-items-center  ">
-                <img th:src="@{'/'+${foto.ruta}}" width="10%" height="auto">
+                <img th:src="@{${foto.ruta}}" width="10%" height="auto">
                 <a th:href="@{/productos/edit/{idP}/foto/del/{id}(idP=${producto.id},id=${foto.id})}"
                 ><i class="bi bi-x-square fs-1 text-danger"></i></a>
             </div>

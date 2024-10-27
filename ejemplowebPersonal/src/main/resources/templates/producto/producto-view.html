@@ -68,8 +68,9 @@
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="foto, index : ${fotos}">
             <div class="card">
                 <a href="#" data-bs-toggle="modal" th:data-bs-target="${'#modal-' + index}">
-                    <img th:src="'/' + @{${foto.ruta}}" class="card-img-top" th:alt="${foto.producto}">
+                    <img th:src= "@{${foto.ruta}}" class="card-img-top" th:alt="${foto.producto}">
                 </a>
+                <p th:text="${foto.ruta}"></p>
             </div>
         </div>
     </div>
