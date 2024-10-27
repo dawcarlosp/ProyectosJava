@@ -79,7 +79,7 @@ public class ProductoService {
         return this.productoRepository.findByCategoria(categoria);
     }
     public Double importeCategoria(Long id){
-        return this.importeCategoria(id);
+        return this.productoRepository.importeCategoria(id);
     }
     public void deleteById(Long id){
         this.productoRepository.deleteById(id);
