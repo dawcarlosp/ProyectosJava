@@ -16,7 +16,7 @@
 
             <label for="categoria" class="form-label">Categoria</label>
             <select id="categoria" th:field="*{categoria}" class="form-select" name="categoria">
-                <option value="" selected>-- Selecciona una categoria --</option>
+                <option value="0" selected>-- Selecciona una categoria --</option>
                 <option th:each="categoria : ${categorias}"
                         th:value="${categoria.id}"
                         th:text="${categoria.nombre}"

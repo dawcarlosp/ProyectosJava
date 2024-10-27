@@ -107,8 +107,12 @@ public class ProductoController {
     @PostMapping("/productos/edit/{id}")
         public String editProducto(Producto producto, MultipartFile files[], BindingResult bindingResult, Model model){
             if(!bindingResult.hasErrors()){
-                this.productoService.guardarProducto(producto,files);
-                return "redirect:/productos/";
+                try {
+                    this.productoService.guardarProducto(producto,files);
+                    return "redirect:/productos/";
+                }catch(IllegalArgumentException ex){
+                    return "redirect:/productos/edit/{id}";
+                }
             }else{
                 return "redirect:/productos/edit/{id}";
             }
