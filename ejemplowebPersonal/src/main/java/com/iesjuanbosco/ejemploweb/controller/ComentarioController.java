@@ -27,10 +27,18 @@ public class ComentarioController {
     private ProductoService productoService;
     @Autowired
     private ComentarioService comentarioService;
+
     //Comentar producto
     @PostMapping("/productos/comentarios/new/{id}")
-    public String comentar(@PathVariable Long id, @Valid Comentario comentario, BindingResult bindingResult, Model model){
-        return this.comentarioService.comentar(id, comentario, bindingResult, model);
+    public String comentar(@PathVariable Long id, @Valid Comentario comentario, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("producto", this.productoService.findById(id).get());
+            model.addAttribute("comentarios", this.comentarioService.findByProductoOrderByFechaDesc((Producto) this.productoService.findById(id).get()));
+            return "/producto/producto-view";
+        } else {
+            this.comentarioService.comentar(id, comentario);
+            return "redirect:/productos/view/" + id;
+        }
     }
     //Listar comentarios
     @GetMapping("/comentarios")

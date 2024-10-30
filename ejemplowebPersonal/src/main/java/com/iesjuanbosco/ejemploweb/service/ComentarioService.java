@@ -21,21 +21,13 @@ public class ComentarioService {
     private ProductoService productoService;
     @Autowired
     private ComentarioRepository comentarioRepository;
-    public String comentar(@PathVariable Long id, @Valid Comentario comentario, BindingResult bindingResult, Model model){
+    public void comentar(@PathVariable Long id, @Valid Comentario comentario){
         Optional<Producto> producto = productoService.findById(id);
-        if(producto.isPresent()) {
-            if (bindingResult.hasErrors()) {
-                model.addAttribute("producto",producto.get());
-                model.addAttribute("comentarios",this.comentarioRepository.findByProductoOrderByFechaDesc(producto.get()));
-                return "/producto/producto-view";
-            }
             comentario.setProducto(producto.get());
             comentario.setFecha(LocalDate.now());
             this.comentarioRepository.save(comentario);
-            return "redirect:/productos/view/" + id;
-        }
-        return "redirect:/productos";
     }
+
     public List<Comentario> findAll(){
         return this.comentarioRepository.findAll();
     }
