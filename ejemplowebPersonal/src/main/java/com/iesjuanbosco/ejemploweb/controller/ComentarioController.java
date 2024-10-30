@@ -49,9 +49,7 @@ public class ComentarioController {
     //Alta comentario
     @GetMapping("/comentarios/new")
     public String newComentarioVista(Model model){
-        List<Producto> productos = new ArrayList<>();
-        productos = this.productoService.findAll();
-        model.addAttribute("productos", productos);
+        model.addAttribute("productos", this.productoService.findAll());
         model.addAttribute("comentario", new Comentario());
         return "/comentario/comentario-new";
     }
