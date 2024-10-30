@@ -2,6 +2,7 @@ package com.iesjuanbosco.ejemploweb.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,8 +23,10 @@ public class Comentario {
     @Column(length = 2000)
     @NotBlank
     private String texto;
+    @NotNull(message = "Debe seleccionar una fecha")
     private LocalDate fecha;
     @ManyToOne(targetEntity = Producto.class)
+    @NotNull(message = "Debe seleccionar un producto")
     private Producto producto;
 
 

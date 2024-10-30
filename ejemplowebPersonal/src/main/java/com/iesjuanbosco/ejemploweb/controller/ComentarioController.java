@@ -80,12 +80,15 @@ public class ComentarioController {
         }
     }
     @PostMapping("/comentarios/edit/{id}")
-    public String editComentarioP(Model model, Comentario comentario, BindingResult bindingResult){
+    public String editComentarioP(Model model, @Valid Comentario comentario, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
+            model.addAttribute("comentario",comentario);
+            model.addAttribute("productos", this.productoService.findAll());
             return "comentario/comentario-edit";
-        }
+        }else{
         this.comentarioService.save(comentario);
-        return "redirect:/comentarios";
+            return "redirect:/comentarios";
+        }
     }
     @GetMapping("/comentarios/view/{id}")
     public String verComentario(@PathVariable Long id, Model model){
