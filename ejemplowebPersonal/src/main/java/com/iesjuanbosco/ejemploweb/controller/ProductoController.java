@@ -1,14 +1,12 @@
 package com.iesjuanbosco.ejemploweb.controller;
 
-import com.iesjuanbosco.ejemploweb.entity.Categoria;
-import com.iesjuanbosco.ejemploweb.entity.Comentario;
-import com.iesjuanbosco.ejemploweb.entity.Foto;
-import com.iesjuanbosco.ejemploweb.entity.Producto;
+import com.iesjuanbosco.ejemploweb.entity.*;
 import com.iesjuanbosco.ejemploweb.repository.CategoriaRepository;
 import com.iesjuanbosco.ejemploweb.repository.ComentarioRepository;
 import com.iesjuanbosco.ejemploweb.repository.ProductoRepository;
 import com.iesjuanbosco.ejemploweb.service.CategoriaService;
 import com.iesjuanbosco.ejemploweb.service.ComentarioService;
+import com.iesjuanbosco.ejemploweb.service.FotoProductoService;
 import com.iesjuanbosco.ejemploweb.service.ProductoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
@@ -35,6 +34,8 @@ public class ProductoController {
     private CategoriaService categoriaService;
     @Autowired
     private ComentarioService comentarioService;
+    @Autowired
+    private FotoProductoService fotoProductoService;
     /*
   GET /productos
   Con la anotación GetMapping le indicamos a Spring que el siguiente metodo se va ejecutar cuando
@@ -43,17 +44,18 @@ public class ProductoController {
 
     //Listar productos
     @GetMapping("/productos/")
-    public String findAll(Model model){
+    public String findAll(Model model) {
         List<Producto> productos = this.productoService.findAll();
         model.addAttribute("productos", productos);
         model.addAttribute("categorias", this.categoriaService.findAll());
         model.addAttribute("importe", this.productoService.importe());
         return "producto/product-list";
     }
+
     //Listar productos por categoria
     @GetMapping("/productos/{id}")
-    public String findAll(Model model, @PathVariable Long id){
-        Optional <Categoria> categoria = this.categoriaService.findById(id);
+    public String findAll(Model model, @PathVariable Long id) {
+        Optional<Categoria> categoria = this.categoriaService.findById(id);
         if (categoria.isPresent()) {
             List<Producto> productos = this.productoService.findByCategoria(categoria.get());
             model.addAttribute("productos", productos);
@@ -61,33 +63,45 @@ public class ProductoController {
             model.addAttribute("importeCategoria", this.productoService.importeCategoria(id));
             model.addAttribute("categorias", this.categoriaService.findAll());
             return "/producto/product-list";
-        }else{
+        } else {
             return "redirect:/productos";
         }
 
     }
+
     //Eliminar producto
     @GetMapping("/productos/del/{id}")
-    public String deleteProductoVista(@PathVariable Long id){
+    public String deleteProductoVista(@PathVariable Long id) {
         this.productoService.deleteById(id);
         return "redirect:/productos/";
     }
+
     //Alta producto
     @GetMapping("/productos/new")
-    public String newProductoVista(Model model){
+    public String newProductoVista(Model model) {
         List<Categoria> categorias = this.categoriaService.findAll();
         model.addAttribute("categorias", categorias);
         model.addAttribute("producto", new Producto());
         return "/producto/producto-new";
     }
+
     @PostMapping("/productos/new")
-    public String newProducto(@Valid Producto producto, BindingResult bindingResult, MultipartFile files[], Model model){
-        if(bindingResult.hasErrors()){
+    public String newProducto(@Valid Producto producto, BindingResult bindingResult, Model model,
+                              @RequestParam(value = "archivosFotos", required = false) List<MultipartFile> fotos) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("categorias", this.categoriaService.findAll());
             return "/producto/producto-new";
         }
-           this.productoService.guardarProducto(producto,files);
-           return "redirect:/productos/";
+        //Guardar fotos
+        try {
+            fotoProductoService.guardarFotos(fotos, producto);
+        } catch (IllegalArgumentException ex) {
+            model.addAttribute("categorias", this.categoriaService.findAll());
+            return "/producto/producto-new";
+        }
+        //Guardar producto
+        this.productoService.saveProducto(producto);
+        return "redirect:/productos/";
     }
     //Modificar producto
     @GetMapping("/productos/edit/{id}")
@@ -122,9 +136,10 @@ public class ProductoController {
     @GetMapping("/productos/view/{id}")
         public String view(@PathVariable Long id, Model model){
         Optional<Producto> producto = this.productoService.findById(id);
-        List<Foto> fotosRutaCompleta = producto.get().getFotos();
-        List<Foto> fotos = new ArrayList<>();
-        for(Foto foto : fotosRutaCompleta){
+        List<FotoProducto> fotosRutaCompleta = producto.get().getFotos();
+        List<FotoProducto> fotos = new ArrayList<>();
+        /*
+        for(FotoProducto foto : fotosRutaCompleta){
             String trozos[] = foto.getRuta().split("/");
             String valido = trozos[1]+ '/' + trozos[2];
             Foto fotoN = new Foto();
@@ -132,6 +147,7 @@ public class ProductoController {
             fotoN.setProducto(foto.getProducto());
             fotos.add(fotoN);
         }
+         */
         if(producto.isPresent()){
             model.addAttribute("producto", producto.get());
             model.addAttribute("comentario" , new Comentario());

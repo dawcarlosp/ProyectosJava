@@ -92,24 +92,26 @@ public class CategoriaController {
     }
 
     @PostMapping("/categorias/edit/{id}")
-    public String editCategoria(@ModelAttribute Categoria categoria, @RequestAttribute("file") MultipartFile file, Model model, BindingResult bindingResult) {
+    public String editCategoria(@Valid Categoria categoria, @RequestAttribute("file") MultipartFile file, Model model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/categoria/categoria-edit";
         } else {
-            //Cambiamos el nombre el archivo
-            UUID nombreUnico = UUID.randomUUID();
-            String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            String nuevoNombreFoto = nombreUnico + extension;
-            //Guardar el archivo en disco
-            Path ruta = Paths.get("uploads/imagesCategorias" + File.separator + nuevoNombreFoto);
-            try {
-                byte[] bytes = file.getBytes();
-                Files.write(ruta, bytes);
-            } catch (Exception e) {
-                model.addAttribute("error", "Ocurrió un error al guardar la entidad");
+            if(!file.isEmpty()) {
+                //Cambiamos el nombre el archivo
+                UUID nombreUnico = UUID.randomUUID();
+                String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+                String nuevoNombreFoto = nombreUnico + extension;
+                //Guardar el archivo en disco
+                Path ruta = Paths.get("uploads/imagesCategorias" + File.separator + nuevoNombreFoto);
+                try {
+                    byte[] bytes = file.getBytes();
+                    Files.write(ruta, bytes);
+                } catch (Exception e) {
+                    model.addAttribute("error", "Ocurrió un error al guardar la entidad");
+                }
+                //Guardamos la ruta en la BD
+                categoria.setFoto(nuevoNombreFoto);
             }
-            //Guardamos la ruta en la BD
-            categoria.setFoto(nuevoNombreFoto);
             this.categoriaService.save(categoria);
             return "redirect:/categorias";
         }

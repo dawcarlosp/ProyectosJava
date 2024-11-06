@@ -1,6 +1,7 @@
 package com.iesjuanbosco.ejemploweb.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -15,8 +16,10 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "La categoría debe tener un nombre")
     private String nombre;
     @Column(length = 1500)
+    @NotBlank(message = "La categoria requiere una descripción")
     private String descripcion;
     private String foto;
     //CascadeType.ALL

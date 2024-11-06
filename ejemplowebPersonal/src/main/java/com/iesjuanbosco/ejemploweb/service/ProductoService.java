@@ -2,6 +2,7 @@ package com.iesjuanbosco.ejemploweb.service;
 
 import com.iesjuanbosco.ejemploweb.entity.Categoria;
 import com.iesjuanbosco.ejemploweb.entity.Foto;
+import com.iesjuanbosco.ejemploweb.entity.FotoProducto;
 import com.iesjuanbosco.ejemploweb.entity.Producto;
 import com.iesjuanbosco.ejemploweb.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,8 @@ public class ProductoService {
                 byte[] contenido = file.getBytes();
                 Files.write(ruta, contenido);
                 fotos.add(nuevoNombreFoto);
-                Foto fotillo = new Foto();
-                fotillo.setRuta(rutaValida);
+                FotoProducto fotillo = new FotoProducto();
+                fotillo.setNombre(rutaValida);
                 fotillo.setProducto(producto);
                 productoRepository.save(producto);
                 producto.getFotos().add(fotillo);
