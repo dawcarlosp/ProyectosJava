@@ -63,12 +63,15 @@
 </div>
 <div class="container my-4">
     <h1 class="text-center">Fotos del producto</h1>
+    <div th:each="foto : ${fotos}">
+        <p th:text="'/imagesProductos/'+${foto.nombre}"></p>
+    </div>
     <div class="row">
         <!-- Thymeleaf loop para cada imagen -->
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="foto, index : ${fotos}">
             <div class="card">
                 <a href="#" data-bs-toggle="modal" th:data-bs-target="${'#modal-' + index}">
-                    <img th:src= "@{${foto.ruta}}" class="card-img-top" th:alt="${foto.producto}">
+                    <img th:src= "@{'/imagesProductos/'+${foto.nombre}}" class="card-img-top" th:alt="${foto.producto}">
                 </a>
             </div>
         </div>
@@ -85,7 +88,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img th:src="@{${foto.ruta}}" class="img-fluid" alt="Imagen de galería">
+                    <img th:src="@{'/imagesProductos/'+${foto.nombre}}" class="img-fluid" alt="Imagen de galería">
                 </div>
             </div>
         </div>

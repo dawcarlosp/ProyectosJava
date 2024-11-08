@@ -137,7 +137,7 @@ public class ProductoController {
         public String view(@PathVariable Long id, Model model){
         Optional<Producto> producto = this.productoService.findById(id);
         List<FotoProducto> fotosRutaCompleta = producto.get().getFotos();
-        List<FotoProducto> fotos = new ArrayList<>();
+        List<FotoProducto> fotos = producto.get().getFotos();
         /*
         for(FotoProducto foto : fotosRutaCompleta){
             String trozos[] = foto.getRuta().split("/");
@@ -152,7 +152,7 @@ public class ProductoController {
             model.addAttribute("producto", producto.get());
             model.addAttribute("comentario" , new Comentario());
             model.addAttribute("comentarios", this.comentarioService.findByProductoOrderByFechaDesc(producto.get()));
-            model.addAttribute("fotos", fotosRutaCompleta);
+            model.addAttribute("fotos", fotos);
             return "/producto/producto-view";
         }else{
             return "redirect:/productos/";
